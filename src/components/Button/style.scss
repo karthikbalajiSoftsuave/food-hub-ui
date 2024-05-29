@@ -1,0 +1,18 @@
+.primary {
+    background-color: #e23e3e;
+
+    &:hover {
+        background-color: #ee8b8b;
+    }
+}
+
+.outlined {
+    background-color: #fff;
+    border: 1px solid #e23e3e;
+    color: #e23e3e;
+
+    &:hover {
+        background-color: #e23e3e;
+        color: #fff;
+    }
+}

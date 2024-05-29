@@ -2,17 +2,22 @@ import axios, { AxiosInstance, AxiosResponse, AxiosError } from "axios";
 
 class BaseAxios {
   axiosInstance: AxiosInstance;
+  public endpoints: string[] = ["login", "signup"]
 
   constructor() {
     this.axiosInstance = axios.create({
       baseURL: "http://127.0.0.1:8000/api/"
-     
+
       // baseURL: process.env.REACT_APP_API, // Replace with your API base URL
     });
 
     // Set up a request interceptor to attach the access token to requests
     this.axiosInstance.interceptors.request.use(
       (config: any) => {
+        console.log("config", config)
+        if (this.endpoints.includes(config.url)) {
+          return config;
+        }
         const accessToken = this.getAccessToken();
         if (accessToken) {
           config.headers["Authorization"] = `Bearer ${accessToken}`;
@@ -65,5 +70,5 @@ class BaseAxios {
   }
 }
 
-const BaseService = new BaseAxios(); 
+const BaseService = new BaseAxios();
 export default BaseService;

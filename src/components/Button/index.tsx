@@ -1,14 +1,17 @@
 import React, { ButtonHTMLAttributes } from 'react';
+import "./style.scss"
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+type ButtonProps = {
+  variant?: "primary" | "outlined"
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button: React.FC<ButtonProps> = (props) => {
+const Button: React.FC<ButtonProps> = ({ variant, ...props }) => {
   return (
     <button
       {...props}
-      className={`bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-300 ${props.className}`}
+      className={`${variant || 'primary'} rounded-lg text-white font-bold py-3 px-4 focus:outline-none focus:ring focus:ring-blue-300 ${props.className || ''}`}
     >
-      {props.children}
+      {props?.children}
     </button>
   );
 };

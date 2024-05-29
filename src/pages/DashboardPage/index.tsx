@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
-import { FaUser,FaTable } from 'react-icons/fa';
+import { FaUser, FaTable } from 'react-icons/fa';
 const DashboardPage: React.FC = () => {
   return (
     <div className="flex h-screen">
@@ -13,8 +13,8 @@ const DashboardPage: React.FC = () => {
         <nav>
           <ul>
             <li className="mb-2">
-            <Link className=" hover:underline" to={'/dashboard/recipes'}>
-                <FaTable/>
+              <Link className=" hover:underline" to={'/dashboard/recipes'}>
+                <FaTable />
               </Link>
             </li>
             {/* Add more menu items */}
@@ -26,7 +26,8 @@ const DashboardPage: React.FC = () => {
       <main className="flex-1 p-4">
         {/* Header */}
         <header className="bg-white shadow-md p-4">
-          <h1 className="text-2xl font-semibold">Welcome to Your SoftSuave</h1>
+          <h1 className="text-2xl font-semibold">Welcome to Recipe Hub</h1>
+          {/* <h2 className="text-2xl font-semibold">Start creating your recipes here.</h2> */}
         </header>
 
         {/* Main Content */}
