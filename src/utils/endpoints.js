@@ -17,5 +17,6 @@ export const APIENDPOINTS = {
 
 export const UI_ENDPOINTS = {
   AUTH: "/auth",
-  RECIPES_LIST: "/dashboard/recipes",
+  APP: "/app",
+  RECIPES_LIST: "/app/recipes",
 };
