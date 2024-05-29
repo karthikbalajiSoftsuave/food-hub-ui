@@ -147,6 +147,7 @@ const CreateRecipeModal: React.FC<Tprops> = (props) => {
 
             <div className="flex flex-col lg:flex-row lg:justify-between items-center">
               <Button
+              variant="outlined"
                 type="button"
                 onClick={() => {
                   formik.resetForm();

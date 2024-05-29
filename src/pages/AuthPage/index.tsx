@@ -1,23 +1,56 @@
-import { Outlet } from "react-router-dom";
-import "./styles.css";
+import React, { useState } from "react";
+import "./styles.scss";
+import SignUpForm from "./SignUpPage";
+import SignInForm from "./SignInPage";
 
-const AuthPage: React.FC = () => {
+const AuthPage = () => {
+  const [type, setType] = useState("signIn");
+  const containerClass = "container " + (type === "signUp" ? "right-panel-active" : "");
+
+  const handleOnClick = (text: string) => {
+    if (text !== type) {
+      setType(text);
+      return;
+    }
+  };
+
   return (
-    
-      <div className="lg:flex min-h-screen">
-        {/* Left side for large screens */}
-        {/* <aside className="hidden lg:block w-2/4 bg-orange-400">
-          <div>
-          
+    <div className="AuthPage">
+      <div className={containerClass} id="container">
+        <SignUpForm setType={setType} />
+        <SignInForm />
+        <div className="overlay-container">
+          <div className="overlay">
+            <div className="overlay-panel overlay-left">
+              <h1>Welcome Back!</h1>
+              <p className="text-info">
+                To keep connected with us please login
+              </p>
+              <button
+                className="ghost"
+                id="signIn"
+                onClick={() => handleOnClick("signIn")}
+              >
+                Sign In
+              </button>
+            </div>
+            <div className="overlay-panel overlay-right">
+              <h1>Hello, cook!</h1>
+              <p className="text-info">Enter your details and start journey with Recipe Hub</p>
+              <button
+                className="ghost "
+                id="signUp"
+                onClick={() => handleOnClick("signUp")}
+              >
+                Sign Up
+              </button>
+            </div>
           </div>
-        </aside> */}
-
-        {/* Right side */}
-        <div className="w-full">
-          <Outlet />
         </div>
       </div>
+    </div>
   );
-};
+}
+
 
 export default AuthPage;

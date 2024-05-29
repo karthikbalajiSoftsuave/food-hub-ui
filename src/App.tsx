@@ -5,21 +5,27 @@ import AuthPage from "./pages/AuthPage";
 import PublicRoute from "./routes/PublicRoutes";
 import DashboardPage from "./pages/DashboardPage";
 import PrivateRoute from "./routes/PrivateRoutes";
-import LoginPage from "./pages/AuthPage/LoginPage";
 import { ToastContainer } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import { clearUser } from "./redux/slices/userSlice";
+import IntroPage from "./pages/IntroPage";
+import HomePage from "./pages/HomePage";
 const App: React.FC = () => {
-  store.dispatch(clearUser())
+  // store.dispatch(clearUser())
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <AuthPage />,
+      element: <HomePage />,
       children: [
-        {path:"",
-        element:<LoginPage/>
+        {
+          path: "",
+          element: <IntroPage />
+        },
+        {
+          path: "/auth",
+          element: <AuthPage />
         },
         {
           path: "*",
@@ -40,9 +46,9 @@ const App: React.FC = () => {
   ]);
   return (
     <div className="App">
-    <Provider store={store}>
-      <RouterProvider router={router} />
-      <ToastContainer/>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+        <ToastContainer />
       </Provider>
     </div>
   );
