@@ -61,7 +61,7 @@ const Recipe: React.FC = () => {
             <FaPlus /> <span>Create Recipes</span>
           </Button>
         </div>
-        {recipes.length > 0 && (
+        {recipes?.length > 0 && (
           <Recipes
             data={recipes}
             setEditData={setEditData}
