@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./styles.scss";
 import SignUpForm from "./SignUpPage";
 import SignInForm from "./SignInPage";

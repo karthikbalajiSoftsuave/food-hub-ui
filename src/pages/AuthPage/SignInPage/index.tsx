@@ -8,6 +8,7 @@ import { UI_ENDPOINTS } from "../../../utils/endpoints";
 import { Tlogin } from "../../../interface/auth.interface";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../../redux/slices/userSlice";
+import { STATUS } from "../../../utils/constants";
 
 
 const SignInForm = () => {
@@ -18,10 +19,10 @@ const SignInForm = () => {
         try {
             payload.email = payload.email.toLowerCase()
             const res = await login(payload);
-            if (res) {
-                console.log(res);
+            if (res?.status === STATUS.SUCCESS) {
                 dispatch(addUser(res));
-                navigate(UI_ENDPOINTS.RECIPES_LIST)
+                navigate(UI_ENDPOINTS.RECIPES_LIST);
+                localStorage.setItem("accessToken", res?.data?.access)
                 Toaster({ toast: res?.data?.message, toastType: "success" })
             }
         }

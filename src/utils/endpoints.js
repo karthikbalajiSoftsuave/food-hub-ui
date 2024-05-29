@@ -5,7 +5,9 @@ export const APIENDPOINTS = {
   },
   RECIPES: {
     CREATE: "recipe",
-    GET: "recipe",
+    GET: (id) => {
+      return `recipe?page=${id}`;
+    },
     EDIT: (id) => {
       return `recipe?id=${id}`;
     },

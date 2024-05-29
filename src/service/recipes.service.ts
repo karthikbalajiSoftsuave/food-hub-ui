@@ -2,9 +2,9 @@ import BaseService from "./base.service";
 import { APIENDPOINTS } from "../utils/endpoints";
 import { TRecipe } from "../interface/recipes.interface";
 
-export const getRecipes = async () => {
+export const getRecipes = async (page: number) => {
   try {
-    const { data } = await BaseService.get(APIENDPOINTS.RECIPES.GET);
+    const { data } = await BaseService.get(APIENDPOINTS.RECIPES.GET(page));
     return data;
   } catch (err) {
     throw err;

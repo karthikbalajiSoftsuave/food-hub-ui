@@ -1,5 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
+import RecipesListPage from "../pages/RecipesListPage";
+import CreateRecipe from "../pages/CreateRecipePage";
 const RecipeComponent = lazy(() => import("../container/RecipeComponent"));
 const PrivateRoute: React.FC = () => {
   return (
@@ -9,11 +11,19 @@ const PrivateRoute: React.FC = () => {
           path="/recipes"
           element={
             <Suspense>
-              <RecipeComponent />
+              <RecipesListPage />
             </Suspense>
           }
         />
       </Route>
+      <Route
+          path="/create-recipe"
+          element={
+            <Suspense>
+              <CreateRecipe />
+            </Suspense>
+          }
+        />
     </Routes>
   );
 };

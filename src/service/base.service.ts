@@ -14,7 +14,6 @@ class BaseAxios {
     // Set up a request interceptor to attach the access token to requests
     this.axiosInstance.interceptors.request.use(
       (config: any) => {
-        console.log("config", config)
         if (this.endpoints.includes(config.url)) {
           return config;
         }
