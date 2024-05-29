@@ -21,4 +21,5 @@ export const UI_ENDPOINTS = {
   AUTH: "/auth",
   APP: "/app",
   RECIPES_LIST: "/app/recipes",
+  CREATE_RECIPE: "/app/create-recipe",
 };

@@ -1,14 +1,18 @@
 import Input from "../../components/Input"
 import Button from "../../components/Button"
-import Backdrop from "../../container/Modal/BackDrop/insex"
 import { useFormik } from "formik"
 import { validationSchema } from "../../container/Modal/CreateRecipeModal/validation"
 import { createRecipes, editRecipes } from "../../service/recipes.service"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { addUser } from "../../redux/slices/userSlice"
 import { IRecipe, TRecipe } from "../../interface/recipes.interface"
-import "./styles.css";
-import { useParams } from "react-router-dom"
+import "./style.scss";
+import { useNavigate, useParams } from "react-router-dom"
+import TextBox from "../../components/TextBox"
+import { ClockIcon } from "../../icon-components/clock-icon"
+import Ingredients, { IIngredient } from "../../components/Ingredient"
+import PreparationSteps, { IPreparationSteps } from "../../components/Preparation Steps"
+import { UI_ENDPOINTS } from "../../utils/endpoints"
 
 
 type Tprops = {
@@ -16,6 +20,8 @@ type Tprops = {
 };
 const CreateRecipe: React.FC<Tprops> = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate()
+    const recipeInfo = useSelector((state: any) => state.user.recipeDetails);
     const { id } = useParams();
 
     const handleOnCreateEditRecipe = async (payload: TRecipe) => {
@@ -33,22 +39,30 @@ const CreateRecipe: React.FC<Tprops> = () => {
             console.log(err)
         }
     }
-    const getrecipeDetails = () =>{
+    const getrecipeDetails = () => {
         try {
-            
+
         } catch (error) {
-            
+
         }
     }
+
+    const handleOnIngredient = (value: IIngredient[]) => {
+        formik.setFieldValue("ingredients", JSON.stringify(value));
+    }
+    const handleOnPreparationSteps = (value: IPreparationSteps[]) => {
+        formik.setFieldValue("preparationSteps", JSON.stringify(value));
+    }
+
     const formik = useFormik({
         enableReinitialize: true,
         initialValues: {
-            title: props.rec?.title ?? "",
-            description: props.rec?.description ?? "",
-            ingredients: props.rec?.ingredients ?? "",
-            cookingTime: props.rec?.cookingTime ?? "",
-            preparationSteps: props.rec?.preparationSteps ?? "",
-            servingSize: props.rec?.servingSize ?? 0,
+            title: recipeInfo?.title ?? "",
+            description: recipeInfo?.description ?? "",
+            ingredients: recipeInfo?.ingredients ?? "",
+            cookingTime: recipeInfo?.cookingTime ?? "",
+            preparationSteps: recipeInfo?.preparationSteps ?? "",
+            servingSize: recipeInfo?.servingSize ?? 1,
         },
         validationSchema: validationSchema,
         onSubmit: handleOnCreateEditRecipe
@@ -56,27 +70,32 @@ const CreateRecipe: React.FC<Tprops> = () => {
 
     return (
         <>
+            <div className="create-recipe-page">
+                <form onSubmit={formik.handleSubmit} className="create-recipe-form">
+                    <h2 className="title">Create Recipe</h2>
+                    <div>
+                        <Input
+                            className="form-field"
+                            type="text"
+                            name="title"
+                            label="Title"
+                            value={formik.values.title}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={
+                                formik.touched.title && formik.errors.title
+                                    ? formik.errors.title
+                                    : undefined
+                            }
+                        />
+                    </div>
 
-            <div className="custom-dialog">
-                <form onSubmit={formik.handleSubmit}>
-                    <Input
-                        type="text"
-                        name="title"
-                        label="Title"
-                        value={formik.values.title}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={
-                            formik.touched.title && formik.errors.title
-                                ? formik.errors.title
-                                : undefined
-                        }
-                    />
-
-                    <Input
-                        type="text"
+                    <TextBox
+                        className="form-field"
+                        rows={4}
                         name="description"
                         label="Description"
+                        placeholder="Enter Description"
                         value={formik.values.description}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -86,25 +105,12 @@ const CreateRecipe: React.FC<Tprops> = () => {
                                 : undefined
                         }
                     />
-
                     <Input
-                        type="text"
-                        name="ingredients"
-                        label="Ingredients"
-                        value={formik.values.ingredients}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={
-                            formik.touched.ingredients && formik.errors.ingredients
-                                ? formik.errors.ingredients
-                                : undefined
-                        }
-                    />
-
-                    <Input
+                        className="form-field"
                         type="text"
                         name="cookingTime"
-                        label="Cooking Time"
+                        placeholder="1hr"
+                        label={<>Cooking Time <ClockIcon /> </>}
                         value={formik.values.cookingTime}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
@@ -114,22 +120,18 @@ const CreateRecipe: React.FC<Tprops> = () => {
                                 : undefined
                         }
                     />
+                    <div style={{ marginTop: "25px" }}>
+                        <label className="block text-sm font-medium mb-1">Ingredients</label>
+                        <Ingredients onChange={(ingredient) => handleOnIngredient(ingredient)} />
+                    </div>
+
+                    <div style={{ marginTop: "25px" }}>
+                        <label className="block text-sm font-medium mb-1">Preparation Steps</label>
+                        <PreparationSteps onChange={(preparationSteps) => handleOnPreparationSteps(preparationSteps)} />
+                    </div>
 
                     <Input
-                        type="text"
-                        name="preparationSteps"
-                        label="Preparation Steps"
-                        value={formik.values.preparationSteps}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={
-                            formik.touched.preparationSteps && formik.errors.preparationSteps
-                                ? formik.errors.preparationSteps
-                                : undefined
-                        }
-                    />
-
-                    <Input
+                        className="form-field"
                         type="number"
                         name="servingSize"
                         label="Serving Size"
@@ -143,17 +145,19 @@ const CreateRecipe: React.FC<Tprops> = () => {
                         }
                     />
 
-                    <div className="flex flex-col lg:flex-row lg:justify-between items-center">
+                    <div className="flex flex-col lg:flex-row lg:justify-evenly items-center">
                         <Button
+                            style={{ width: "150px" }}
                             variant="outlined"
                             type="button"
                             onClick={() => {
                                 formik.resetForm();
+                                navigate(UI_ENDPOINTS.RECIPES_LIST)
                             }}
                         >
                             Back
                         </Button>
-                        <Button type="submit">{id ? "Update" : "Save"}</Button>
+                        <Button style={{ width: "150px" }} type="submit">{id ? "Update" : "Save"}</Button>
                     </div>
                 </form>
             </div>

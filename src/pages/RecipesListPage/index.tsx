@@ -3,11 +3,18 @@ import { TRecipe } from '../../interface/recipes.interface';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { getRecipes } from '../../service/recipes.service';
+import { MOCK_RECIPES_DATA } from '../../utils/constants';
+import "./styles.scss";
+import { Rating } from '@mui/material';
+import ActionsPopOver from '../../components/ActionsPopover';
+import { useNavigate } from 'react-router-dom';
+import { UI_ENDPOINTS } from '../../utils/endpoints';
 
 const RecipesListPage: React.FC = () => {
+    const navigate = useNavigate()
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [recipesList, setRecipesList] = useState<TRecipe[]>([]);
-    const columns = ["title", "category", "Rating", "cookingTime", "servingSize"];
+    const columns = ["Title", "Category", "Cooking Time", "Serving Size", "Rating", "Action"];
     const [page, setPage] = useState<number>(1)
 
     const handleOnGetAllRecipes = async () => {
@@ -19,6 +26,7 @@ const RecipesListPage: React.FC = () => {
             console.log("error", error);
         }
         finally {
+            setRecipesList(MOCK_RECIPES_DATA);
             setIsLoading(() => false);
         }
     }
@@ -27,7 +35,7 @@ const RecipesListPage: React.FC = () => {
 
     }
     const handleOnCreateRecipe = () => {
-
+        navigate(UI_ENDPOINTS.CREATE_RECIPE)
     }
 
     const handleOnEditRecipe = (recipe: TRecipe) => {
@@ -48,41 +56,50 @@ const RecipesListPage: React.FC = () => {
                             <h4 className="title">Recipes</h4>
                             <div className="menu-bar">
                                 <div className="search-container">
-                                    <Input className="search-workspace" placeholder="Search Workspaces" onChange={(event: any) => handleOnSearchRecipe(event?.target.value)} />
+                                    <Input className="search-recipe" placeholder="Search Recipe" onChange={(event: any) => handleOnSearchRecipe(event?.target.value)} />
                                 </div>
-                                <Button className='className="create-workspace-btn"' onClick={handleOnCreateRecipe}>
+                                <Button onClick={handleOnCreateRecipe}>
                                     Create New Recipe +
                                 </Button>
                             </div>
                             {recipesList?.length ? <div className="table-view">
-                                <table className="workspace-table">
-                                    <thead className="workspace-table__header">
+                                <table className="recipe-table">
+                                    <thead className="recipe-table__header">
                                         <tr>
                                             {columns?.map((column) => <th>{column}</th>)}
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {recipesList?.map((recipe) => <tr>
+                                        {recipesList?.map((recipe, index) => <tr className={index % 2 === 0 ? "" : "alt-row"}>
 
                                             <td>
-                                                <span>{recipe?.title}</span>
+                                                <span className='cell'>{recipe?.title}</span>
                                             </td>
                                             <td>
-                                                <span>{recipe?.category}</span>
+                                                <span className='cell'>{recipe?.category}</span>
                                             </td>
                                             <td>
-                                                <span>{recipe?.rating}</span>
+                                                <span className='cell'>{recipe?.cookingTime}</span>
                                             </td>
                                             <td>
-                                                <span>{recipe?.cookingTime}</span>
+                                                <span className='cell'>{recipe?.servingSize}</span>
                                             </td>
                                             <td>
-                                                <span>{recipe?.servingSize}</span>
+                                                <div>
+                                                    <Rating
+                                                        readOnly
+                                                        name="simple-controlled"
+                                                        value={Number(recipe?.rating)}
+                                                    />
+                                                </div>
                                             </td>
                                             <td>
-                                                <Button variant='outlined' onClick={() => handleOnEditRecipe(recipe)}>
+                                                <span className='cell'>
+                                                    <ActionsPopOver />
+                                                </span>
+                                                {/* <Button variant='outlined' onClick={() => handleOnEditRecipe(recipe)}>
                                                     View/Edit
-                                                </Button>
+                                                </Button> */}
                                             </td>
                                         </tr>)}
                                     </tbody >

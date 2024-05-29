@@ -19,13 +19,11 @@
             background-color: #fff;
             padding: 10px;
 
-            .search-workspace {
-                ::ng-deep {
-                    .search-input {
-                        box-shadow: none;
-                        width: 50%;
-                        z-index: 0;
-                    }
+            .search-recipe {
+                input {
+                    box-shadow: none;
+                    width: 50%;
+                    z-index: 0;
                 }
             }
         }
@@ -92,15 +90,6 @@
         }
     }
 
-    .primary-button {
-        background-color: #43415c;
-        cursor: pointer;
-        padding: 17px;
-        color: #FFFFFF;
-        border-radius: 5px;
-        border: none;
-        outline: none;
-    }
 
     .recipes-list {
         .table-view {
@@ -110,32 +99,19 @@
             max-height: calc(100vh - 250px);
             overflow: auto;
 
-            .workspaceId {
-                font-weight: 700 !important;
-            }
-
-            .view-button {
-                ::ng-deep {
-                    .view-button {
-                        border: 1px solid #43425D;
-                        background-color: #fff;
-                        padding: 7px 10px;
-                        color: #43425D;
-                        border-radius: 5px;
-                        box-shadow: none;
-                    }
-                }
-
-            }
         }
 
-        .workspace-table {
+        .recipe-table {
             width: 100%;
+
+            .alt-row {
+                background-color: #ffeded;
+            }
 
             &__header {
                 position: sticky;
                 top: 0;
-                background-color: #FFFFFF;
+                background-color: #e23e3e;
                 z-index: 1;
             }
 
@@ -153,7 +129,7 @@
                 font-weight: 400;
                 color: #4A4B4D;
 
-                span {
+                .cell {
                     color: #4A4B4D;
                     font-weight: 400;
                     font-size: 13px;
@@ -171,6 +147,11 @@
 
                 &:last-child {
                     width: 155px;
+
+                    span {
+                        display: flex;
+                        justify-content: center;
+                    }
                 }
             }
 
@@ -178,7 +159,7 @@
                 padding: 16px;
                 font-size: 13px;
                 font-weight: 700;
-                color: #1C1D1F;
+                color: #fff;
             }
         }
 
@@ -188,11 +169,4 @@
         }
     }
 
-    .create-workspace-btn {
-        ::ng-deep {
-            .create-workspace-btn {
-                padding: 17px;
-            }
-        }
-    }
 }

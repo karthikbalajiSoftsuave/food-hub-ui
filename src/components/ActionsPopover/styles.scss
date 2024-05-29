@@ -1,0 +1,146 @@
+.action-popover {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+    .userName {
+        line-height: 18px;
+        font-weight: 600;
+        font-size: 16px;
+        padding-left: 20px;
+    }
+
+    .menuTrigger {
+        cursor: pointer;
+        display: block;
+        padding: 4px 6px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        transition: box-shadow 0.4s ease;
+        margin-left: auto;
+        box-shadow: unset !important;
+        background-color: unset !important;
+
+        .menuTrigger:hover {
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        span {
+            font-weight: 700;
+            vertical-align: middle;
+            font-size: 14px;
+            margin: 0 10px;
+        }
+
+        img {
+            border-radius: 90px;
+        }
+    }
+
+    .popupMenu {
+        background: #ffffff;
+        border-radius: 8px;
+        position: absolute;
+        top: 45px;
+        right: 0;
+        width: 150px;
+        padding: 10px 0;
+        filter: drop-shadow(0px 1px 8px rgb(0 0 0 / 20%));
+        opacity: 0;
+        transform: translateY(-20px);
+        transition: all 0.4s ease;
+        z-index: 20;
+        pointer-events: none;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 15px;
+            z-index: 1;
+            background: #FFF;
+            width: 15px;
+            transform: translateY(-50%) rotate(45deg);
+            height: 15px;
+        }
+
+        &.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            padding: 6px 20px;
+            transition: all .25s;
+
+            span {
+                a {
+                    text-decoration: none;
+                }
+            }
+
+            &:hover {
+                background: #ededed;
+            }
+
+            &.userInfo {
+                margin-bottom: 5px;
+
+                &:hover {
+                    background: unset;
+                }
+
+                &>div {
+                    padding: 0 15px;
+
+                    p {
+                        margin: 0;
+                        font-size: 12px;
+                        line-height: 14px;
+                    }
+
+
+                }
+            }
+        }
+
+        li h6 {
+            text-decoration: none;
+            color: #333333;
+            display: block;
+            width: 100%;
+            cursor: pointer;
+            text-align: left;
+            padding-left: 20px;
+        }
+    }
+
+    .overlay {
+        background-color: transparent;
+        z-index: 5;
+        position: fixed;
+        inset: 0;
+    }
+
+    @media (max-width: 767px) {
+        .menuTrigger {
+            margin-right: 16px !important;
+
+            p {
+                display: none;
+            }
+        }
+    }
+}
