@@ -1,4 +1,3 @@
-import React from "react";
 import { useDispatch } from "react-redux";
 import { clearUser } from "../redux/slices/userSlice";
 import { Outlet } from "react-router-dom";

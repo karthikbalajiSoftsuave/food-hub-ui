@@ -11,20 +11,6 @@ const RecipeComponent = lazy(() => import("../container/RecipeComponent"));
 
 const AppRouter = () => {
   const userData = useSelector((state: any) => state.user);
-  //   const dispatch = useDispatch();
-  //   const Navigate = useNavigate();
-  // //   dispatch(clearUser());
-
-  //   useEffect(() => {
-  //     if (userData?.data?.access) {
-  //       Navigate("/recipes");
-  //     } else {
-  //       Navigate("/");
-  //     }
-  //   }, [userData]);
-
-  //   return <>{userData?.data?.access ? <PrivateRoute /> : <PublicRoute />}</>;
-
   return (
     <Routes>
       <Route

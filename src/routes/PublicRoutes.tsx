@@ -6,7 +6,6 @@ type Props = {
 };
 
 export const PublicRoute = ({ isAuthenticated }: Props) => {
-  console.log("public", isAuthenticated)
   return !isAuthenticated ? (
     <Outlet />
   ) : (
