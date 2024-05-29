@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 const initialState: any = {
-  userList: []
 };
 
 export const userSlice = createSlice({
@@ -8,11 +7,11 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     addUser: (state, action) => {
-      state.userList.push(action.payload)
-      return state;
+      return {...state, ...action.payload}
     },
     removeUser: (state, action) => {
-      return { userList : state.filter((state:any) => state.name !== action.payload.name)};
+      // return { userList : state.filter((state:any) => state.name !== action.payload.name)};
+      return state;
     },
     clearUser: () => {
       return initialState;
