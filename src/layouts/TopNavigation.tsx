@@ -10,7 +10,6 @@ const TopNavigation = () => {
     <div>
       <div className="top-nav-bar">
       <ProfilePopup />
-        {/* <div className="logout" onClick={() => dispatch(clearUser())}>Logout</div> */}
       </div>
       <Outlet />
     </div>

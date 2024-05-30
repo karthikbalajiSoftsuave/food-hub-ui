@@ -20,7 +20,7 @@ const SignInForm = () => {
             payload.email = payload.email.toLowerCase()
             const res = await login(payload);
             if (res?.status === STATUS.SUCCESS) {
-                dispatch(addUser(res));
+                dispatch(addUser(res?.data));
                 navigate(UI_ENDPOINTS.RECIPES_LIST);
                 localStorage.setItem("accessToken", res?.data?.access)
                 Toaster({ toast: res?.data?.message, toastType: "success" })

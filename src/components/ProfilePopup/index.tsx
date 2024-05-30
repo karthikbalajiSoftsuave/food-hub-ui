@@ -3,16 +3,24 @@ import React, { useRef, useState } from "react";
 import "./styles.scss"
 import { AvatarIcon } from "../../icon-components/avatar";
 import { LogoutIcon } from "../../icon-components/logout-icon";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../../redux/slices/userSlice";
+import { useNavigate } from "react-router-dom";
 type Tprops = {
 }
 
 
 const ProfilePopup: React.FC<Tprops> = () => {
-
+    const userData = useSelector((state: any) => state.user);
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const dropdownRef = useRef(null);
     const [isActive, setIsActive] = useState<boolean>(false)
-    const logout = async () => { 
+    const logout = async () => {
         setIsActive(!isActive);
+        dispatch(addUser(null));
+        localStorage.clear();
+        navigate("/");
     }
 
 
@@ -26,7 +34,7 @@ const ProfilePopup: React.FC<Tprops> = () => {
                 <ul>
                     <li className="userInfo">
                         <AvatarIcon />
-                        <p className="userName">Recipe Hub User</p>
+                        <p className="userName">{userData?.user_info?.first_name} {userData?.user_info?.last_name}</p>
                     </li>
                     <li onClick={() => logout()}>
                         <LogoutIcon />

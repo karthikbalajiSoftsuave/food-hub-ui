@@ -6,9 +6,7 @@ class BaseAxios {
 
   constructor() {
     this.axiosInstance = axios.create({
-      baseURL: "http://127.0.0.1:8000/api/"
-
-      // baseURL: process.env.REACT_APP_API, // Replace with your API base URL
+      baseURL: " https://57dfefbdb43ac0235f888a1e80c4122c.serveo.net/api/"
     });
 
     // Set up a request interceptor to attach the access token to requests

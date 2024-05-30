@@ -23,7 +23,7 @@ const AppRouter = () => {
         }
       />
       <Route
-        element={<PrivateRoute isAuthenticated={!!userData?.data?.access} />}
+        element={<PrivateRoute isAuthenticated={userData?.access} />}
       >
         <Route path={UI_ENDPOINTS.APP} element={<TopNavigation />}>
           <Route
@@ -45,7 +45,7 @@ const AppRouter = () => {
         </Route>
       </Route>
       <Route
-        element={<PublicRoute isAuthenticated={!!userData?.data?.access} />}
+        element={<PublicRoute isAuthenticated={userData?.data?.access} />}
       >
         <Route
           path={UI_ENDPOINTS.AUTH}
