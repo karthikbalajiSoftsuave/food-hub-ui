@@ -1,8 +1,10 @@
 .top-nav-bar {
-    height: 20px;
+    height: 50px;
     width: 100%;
     display: flex;
     justify-content: end;
+    background-color: #e23e3e;
+    padding-right: 25px;
 
     .logout {
         margin-right: 20px;

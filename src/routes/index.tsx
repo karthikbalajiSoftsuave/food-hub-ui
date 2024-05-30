@@ -6,8 +6,9 @@ import { useSelector } from "react-redux";
 import { PublicRoute } from "./PublicRoutes";
 import { PrivateRoute } from "./PrivateRoutes";
 import TopNavigation from "../layouts/TopNavigation";
+import CreateRecipe from "../pages/CreateRecipePage";
 const AuthPage = lazy(() => import("../pages/AuthPage"));
-const RecipeComponent = lazy(() => import("../container/RecipeComponent"));
+const RecipesListPage = lazy(() => import("../pages/RecipesListPage"));
 
 const AppRouter = () => {
   const userData = useSelector((state: any) => state.user);
@@ -29,7 +30,15 @@ const AppRouter = () => {
             path={UI_ENDPOINTS.RECIPES_LIST}
             element={
               <Suspense>
-                <RecipeComponent />
+                <RecipesListPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path={UI_ENDPOINTS.CREATE_RECIPE}
+            element={
+              <Suspense>
+                <CreateRecipe />
               </Suspense>
             }
           />

@@ -8,7 +8,7 @@ import Recipes from "../Recipe";
 import { deleteRecipes } from "../../service/recipes.service";
 import { useSelector } from 'react-redux';
 const Recipe: React.FC = () => {
-  
+
   const user = useSelector((state: any) => state.user.userList);
   const [recipes, setrecipes] = useState<IRecipe[]>(user);
   const [recipe, setrecipe] = useState<IRecipe | undefined>();
@@ -28,7 +28,7 @@ const Recipe: React.FC = () => {
     if (id) {
       try {
         await deleteRecipes(id);
-      } catch (err) {}
+      } catch (err) { }
     }
   };
   const onclose = () => {
@@ -37,7 +37,7 @@ const Recipe: React.FC = () => {
   };
   const getrecipeDetails = async () => {
     try {
-      const { data } = await getRecipes();
+      const { data } = await getRecipes(1);
       setrecipes(data);
     } catch (err) {
       console.log("error");

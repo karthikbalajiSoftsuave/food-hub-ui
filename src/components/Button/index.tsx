@@ -9,7 +9,7 @@ const Button: React.FC<ButtonProps> = ({ variant, ...props }) => {
   return (
     <button
       {...props}
-      className={`${variant || 'primary'} rounded-lg text-white font-bold py-3 px-4 focus:outline-none focus:ring focus:ring-blue-300 ${props.className || ''}`}
+      className={`${variant || 'primary'} rounded-lg text-white font-bold py-3 px-4 focus:outline-none ${props.className || ''}`}
     >
       {props?.children}
     </button>

@@ -1,0 +1,19 @@
+.create-recipe-page {
+    .create-recipe-form {
+        padding: 25px;
+
+        .form-field {
+            background-color: #fff;
+            border: 1px solid #d9d9d9;
+            border-radius: 10px;
+            &:focus{
+                outline: none;
+            }
+        }
+    }
+
+    .title {
+        font-weight: 700;
+        font-size: 2rem;
+    }
+}

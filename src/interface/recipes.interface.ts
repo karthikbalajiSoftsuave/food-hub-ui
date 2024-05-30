@@ -6,6 +6,8 @@ export type TRecipe = {
       cookingTime: string,
       preparationSteps: string,
       servingSize: number,
+      category?: string
+      rating?:string
 }
 
 export type IRecipe = {
