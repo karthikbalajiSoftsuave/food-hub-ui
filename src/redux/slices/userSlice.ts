@@ -7,25 +7,12 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     addUser: (state, action) => {
-      return { ...state, ...action.payload }
-    },
-    removeUser: (state, action) => {
-      // return { userList : state.filter((state:any) => state.name !== action.payload.name)};
-      return state;
-    },
-    clearUser: () => {
-      return initialState;
-    },
-    setIsDisclosed: (state, action) => {
-      return { ...state, isDisclosed: action.payload };
-    },
-    recipeDetails: (state, action) => {
-      return { ...state, ...action.payload }
-    },
+      return action.payload;
+    }
   },
 });
+
 // Action creators are generated for each case reducer function
-export const { addUser, removeUser, clearUser, setIsDisclosed, recipeDetails } =
-  userSlice.actions;
+export const { addUser } = userSlice.actions;
 
 export default userSlice.reducer;

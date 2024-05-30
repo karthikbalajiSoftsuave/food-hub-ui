@@ -1,6 +1,5 @@
 import * as Yup from 'yup';
 
-
 export const passwordValidation = Yup.string()
     .min(8, "Password must be at least 8 characters")
     .matches(
@@ -25,4 +24,14 @@ export const registerValidationSchema = Yup.object().shape({
 export const loginValidationSchema = Yup.object({
     email: Yup.string().required('Email is required'),
     password: passwordValidation,
+});
+
+export const createRecipeValidationSchema = Yup.object({
+    title: Yup.string().required('Title is required'),
+    description: Yup.string().required('Description is required'),
+    ingredients: Yup.string().required('Ingredients is required'),
+    serving_size: Yup.number().positive().required('Serving size is required'),
+    preparation_steps: Yup.string().required('Preparation Steps is required'),
+    cooking_time: Yup.string().required('Cooking Time is required'),
+    category_id: Yup.string().required('Category Id is required'),
 });

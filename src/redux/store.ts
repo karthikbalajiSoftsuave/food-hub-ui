@@ -3,9 +3,11 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import { combineReducers } from 'redux';
 import userReducer from './slices/userSlice';
+import recipeReducer from './slices/recipeSlice';
 
 const rootReducer = combineReducers({
-  user: userReducer
+  user: userReducer,
+  recipe: recipeReducer
 });
 
 const persistConfig = {

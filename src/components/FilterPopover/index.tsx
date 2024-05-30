@@ -27,13 +27,13 @@ const FilterPopover: React.FC<{ filterProps: any; fieldTypes: any }> = ({
     }
   );
 
-  const onSubmit = (data: any) =>{
+  const onSubmit = (data: any) => {
     console.log(data);
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="filterContainer">
-        {fields.map((field, index) => (
+        {fields.map((field: any, index: number) => (
           <div key={field.id} className="form-container">
             {filterProps.map((column: any, ind: number) => {
               return (

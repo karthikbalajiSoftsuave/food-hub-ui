@@ -4,21 +4,21 @@ export type TRecipe = {
       description: string,
       ingredients: string,
       cooking_time: string,
-      preparationSteps: string,
-      serving_size: number,
+      preparation_steps: string,
+      serving_size: string,
       category_id?: string
       avg_rating?:string
 }
 
 export type IRecipe = {
-      preparationSteps: string
+      preparation_steps: string
       createdAt: string
       description: string
       ingredients: string
       title: string
       cooking_time: string
       updatedAt: string
-      serving_size: number
+      serving_size: string
       __v: number
       _id: string
 }

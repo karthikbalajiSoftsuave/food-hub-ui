@@ -30,8 +30,6 @@ const Dropdown: React.FC<InputProps> = (props) => {
                     className={`my-3.5 input-field ${error ? 'error-input' : ''} ${className || ''}`} {...inputProps}>
                     <option selected hidden>{inputProps?.placeholder || "Select"}</option>
                     {options?.map((option) => <option value={optionValue ? option[optionValue] : option}>{optionLabel ? option[optionLabel] : option}</option>)}
-                    <option>Hello</option>
-                    <option>Hello</option>
                 </select>
                 {error && <img src={ErrorPrompt} alt='noimage' className="cursor-pointer absolute top-1/2 right-4 -translate-y-1/2 w-6 h-6"></img>}
 

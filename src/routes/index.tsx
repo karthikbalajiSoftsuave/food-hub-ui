@@ -42,6 +42,14 @@ const AppRouter = () => {
               </Suspense>
             }
           />
+          <Route
+            path={UI_ENDPOINTS.EDIT_RECIPE}
+            element={
+              <Suspense>
+                <CreateRecipe />
+              </Suspense>
+            }
+          />
         </Route>
       </Route>
       <Route

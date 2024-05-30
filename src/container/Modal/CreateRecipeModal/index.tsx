@@ -2,12 +2,12 @@ import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 import Backdrop from "../BackDrop/insex";
 import { useFormik } from "formik";
-import { validationSchema } from "./validation";
 import "./styles.css";
 import { IRecipe, TRecipe } from "../../../interface/recipes.interface";
 import { editRecipes } from "../../../service/recipes.service";
 import { useDispatch } from 'react-redux';
 import { addUser } from "../../../redux/slices/userSlice";
+import { createRecipeValidationSchema } from "../../../validators/auth.validator";
 
 
 type Tprops = {
@@ -44,10 +44,10 @@ const CreateRecipeModal: React.FC<Tprops> = (props) => {
       description: props.rec?.description ?? "",
       ingredients: props.rec?.ingredients ?? "",
       cooking_time: props.rec?.cooking_time ?? "",
-      preparationSteps: props.rec?.preparationSteps ?? "",
-      serving_size: props.rec?.serving_size ?? 0,
+      preparation_steps: props.rec?.preparation_steps ?? "",
+      serving_size: props.rec?.serving_size ?? '',
     },
-    validationSchema: validationSchema,
+    validationSchema: createRecipeValidationSchema,
     onSubmit: handleOnCreateEditRecipe
   });
 
@@ -121,12 +121,12 @@ const CreateRecipeModal: React.FC<Tprops> = (props) => {
               type="text"
               name="preparationSteps"
               label="Preparation Steps"
-              value={formik.values.preparationSteps}
+              value={formik.values.preparation_steps}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={
-                formik.touched.preparationSteps && formik.errors.preparationSteps
-                  ? formik.errors.preparationSteps
+                formik.touched.preparation_steps && formik.errors.preparation_steps
+                  ? formik.errors.preparation_steps
                   : undefined
               }
             />

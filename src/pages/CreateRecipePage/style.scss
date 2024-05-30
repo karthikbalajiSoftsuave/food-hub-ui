@@ -1,12 +1,13 @@
 .create-recipe-page {
     .create-recipe-form {
-        padding: 25px;
+        margin: 3% 12%;
 
         .form-field {
             background-color: #fff;
             border: 1px solid #d9d9d9;
             border-radius: 10px;
-            &:focus{
+
+            &:focus {
                 outline: none;
             }
         }

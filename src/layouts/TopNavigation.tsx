@@ -1,5 +1,4 @@
 import { useDispatch } from "react-redux";
-import { clearUser } from "../redux/slices/userSlice";
 import { Outlet } from "react-router-dom";
 import "./style.scss"
 import ProfilePopup from "../components/ProfilePopup";
