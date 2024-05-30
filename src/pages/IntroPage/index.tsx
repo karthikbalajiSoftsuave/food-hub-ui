@@ -12,7 +12,7 @@ const IntroPage: React.FC = () => {
     }
 
     return (
-        <div className="w-full mx-auto p-4 h-full home-page">
+        <div className="w-full mx-auto p-4 home-page min-h-screen">
             <h2 className="text-3xl font-semibold mb-6 text-center text-white">Expore more recipes in Recipe Hub !</h2>
             <div className='description'>
                 <h3 className='text-6xl font-semibold mb-6 text-center text-white'>Let's Cooking</h3>

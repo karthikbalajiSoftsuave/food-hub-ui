@@ -5,7 +5,7 @@ type Props = {
 };
 
 export const PrivateRoute = ({ isAuthenticated }: Props) => {
-  return true ? (
+  return isAuthenticated ? (
     <Outlet />
   ) : (
     <Navigate to={"/"} />
