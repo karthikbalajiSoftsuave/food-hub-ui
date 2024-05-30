@@ -36,7 +36,7 @@ const AuthPage = () => {
             </div>
             <div className="overlay-panel overlay-right">
               <h1>Hello, cook!</h1>
-              <p className="text-info">Enter your details and start journey with Recipe Hub</p>
+              <p className="text-info">Enter your details and start journey with Food Recipes</p>
               <button
                 className="ghost "
                 id="signUp"

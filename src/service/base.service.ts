@@ -6,7 +6,7 @@ class BaseAxios {
 
   constructor() {
     this.axiosInstance = axios.create({
-      baseURL: "http://rnqtq-103-249-80-50.a.free.pinggy.link/api/"
+      baseURL: "http://13.201.247.48/api/"
     });
 
     // Set up a request interceptor to attach the access token to requests

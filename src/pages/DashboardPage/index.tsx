@@ -26,7 +26,7 @@ const DashboardPage: React.FC = () => {
       <main className="flex-1 p-4">
         {/* Header */}
         <header className="bg-white shadow-md p-4">
-          <h1 className="text-2xl font-semibold">Welcome to Recipe Hub</h1>
+          <h1 className="text-2xl font-semibold">Welcome to Food Recipes</h1>
           {/* <h2 className="text-2xl font-semibold">Start creating your recipes here.</h2> */}
         </header>
 
