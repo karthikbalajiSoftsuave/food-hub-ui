@@ -18,6 +18,21 @@
         .search-container {
             background-color: #fff;
             padding: 10px;
+            display: grid;
+            align-items: center;
+            grid-template-columns: 1fr 50px;
+
+            .filterField{    
+                margin-right: 10px;
+                cursor: pointer;
+                height: 100%;
+                width: 20px;
+                margin: auto;
+                align-items: center;
+                text-align: center;
+                justify-content: center;
+                display: flex;
+            }
 
             .search-recipe {
                 input {
