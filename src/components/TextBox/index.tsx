@@ -1,4 +1,4 @@
-import React, { TextareaHTMLAttributes, useState } from 'react';
+import React, { TextareaHTMLAttributes } from 'react';
 import ErrorPrompt from "../../assets/error-prompt.svg";
 import "./style.scss";
 
@@ -10,7 +10,7 @@ type InputProps = {
 
 const TextBox: React.FC<InputProps> = ({ ...props }) => {
     const { label, error, className, ...inputProps } = props;
-    const [show, setShow] = useState(false)
+    
     return (
         <div className="w-full">
             {label && (

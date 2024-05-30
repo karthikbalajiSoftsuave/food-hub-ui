@@ -12,17 +12,6 @@ type TProps = {
 };
 
 const SignUpForm: React.FC<TProps> = ({ setType }) => {
-    const initialState = useMemo(() => ({ name: "", email: "", password: "" }), [])
-
-    const [userData, setUserData] = React.useState(initialState);
-
-    const handleChange = (evt: any) => {
-        const value = evt.target.value;
-        setUserData({
-            ...userData,
-            [evt.target.name]: value
-        });
-    };
 
     const submitRegister = async (payload: Tregister) => {
         delete payload.confirmPassword

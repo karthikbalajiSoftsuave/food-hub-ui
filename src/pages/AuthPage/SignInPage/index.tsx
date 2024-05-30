@@ -72,7 +72,6 @@ const SignInForm = () => {
                             : undefined
                     }
                 />
-                <a href="#">Forgot your password?</a>
                 <button>Sign In</button>
             </form>
         </div>

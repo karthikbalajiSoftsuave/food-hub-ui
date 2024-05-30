@@ -5,17 +5,16 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import CloseIcon from '../../../icon-components/close-icon';
 import Button from '../../../components/Button';
 import { useFormik } from 'formik';
 import { ratingValidationSchema } from '../../../validators/auth.validator';
-import { IRecipe, TRecipe } from '../../../interface/recipes.interface';
+import { TRecipe } from '../../../interface/recipes.interface';
 import Toaster from '../../../utils/Toaster';
 import { STATUS } from '../../../utils/constants';
 import { IReviews } from '../../../interface/review.interface';
 import { addReview } from '../../../service/reviews.service';
-import { Input, Rating } from '@mui/material';
+import { Rating } from '@mui/material';
 import TextBox from '../../../components/TextBox';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({

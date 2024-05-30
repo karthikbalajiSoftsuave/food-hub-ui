@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { TRecipe } from '../../interface/recipes.interface'
-import { getReview } from '../../service/reviews.service'
-import Toaster from '../../utils/Toaster'
-import { IReviews } from '../../interface/review.interface'
 import { STATUS } from '../../utils/constants'
 import { getRecipesById } from '../../service/recipes.service'
 import TextBox from '../TextBox'
-import "./style.scss"
-import { EditIcon } from '../../icon-components/edit-icon'
-import { DeleteIcon } from '../../icon-components/delete-icon'
-import Button from '../Button'
+import "./style.scss";
 import moment from "moment";
 import { Rating } from '@mui/material'
 
