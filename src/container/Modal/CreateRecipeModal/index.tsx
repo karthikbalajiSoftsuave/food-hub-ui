@@ -43,9 +43,9 @@ const CreateRecipeModal: React.FC<Tprops> = (props) => {
       title: props.rec?.title ?? "",
       description: props.rec?.description ?? "",
       ingredients: props.rec?.ingredients ?? "",
-      cookingTime: props.rec?.cookingTime ?? "",
+      cooking_time: props.rec?.cooking_time ?? "",
       preparationSteps: props.rec?.preparationSteps ?? "",
-      servingSize: props.rec?.servingSize ?? 0,
+      serving_size: props.rec?.serving_size ?? 0,
     },
     validationSchema: validationSchema,
     onSubmit: handleOnCreateEditRecipe
@@ -107,12 +107,12 @@ const CreateRecipeModal: React.FC<Tprops> = (props) => {
               type="text"
               name="cookingTime"
               label="Cooking Time"
-              value={formik.values.cookingTime}
+              value={formik.values.cooking_time}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={
-                formik.touched.cookingTime && formik.errors.cookingTime
-                  ? formik.errors.cookingTime
+                formik.touched.cooking_time && formik.errors.cooking_time
+                  ? formik.errors.cooking_time
                   : undefined
               }
             />
@@ -133,14 +133,14 @@ const CreateRecipeModal: React.FC<Tprops> = (props) => {
 
             <Input
               type="number"
-              name="servingSize"
+              name="serving_size"
               label="Serving Size"
-              value={formik.values.servingSize}
+              value={formik.values.serving_size}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={
-                formik.touched.servingSize && formik.errors.servingSize
-                  ? formik.errors.servingSize
+                formik.touched.serving_size && formik.errors.serving_size
+                  ? formik.errors.serving_size
                   : undefined
               }
             />

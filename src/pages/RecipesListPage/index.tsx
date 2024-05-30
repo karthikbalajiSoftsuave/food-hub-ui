@@ -3,7 +3,6 @@ import { TRecipe } from '../../interface/recipes.interface';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import { getRecipes } from '../../service/recipes.service';
-import { MOCK_RECIPES_DATA } from '../../utils/constants';
 import "./styles.scss";
 import { Rating } from '@mui/material';
 import ActionsPopOver from '../../components/ActionsPopover';
@@ -21,12 +20,12 @@ const RecipesListPage: React.FC = () => {
         setIsLoading(true);
         try {
             const getAllRecipes = await getRecipes(page);
-            console.log("getAllRecipes", getAllRecipes);
+            setRecipesList(getAllRecipes?.data?.results)
         } catch (error) {
+            setRecipesList([]);
             console.log("error", error);
         }
         finally {
-            setRecipesList(MOCK_RECIPES_DATA);
             setIsLoading(() => false);
         }
     }
@@ -76,20 +75,20 @@ const RecipesListPage: React.FC = () => {
                                                 <span className='cell'>{recipe?.title}</span>
                                             </td>
                                             <td>
-                                                <span className='cell'>{recipe?.category}</span>
+                                                <span className='cell'>{recipe?.category_id}</span>
                                             </td>
                                             <td>
-                                                <span className='cell'>{recipe?.cookingTime}</span>
+                                                <span className='cell'>{recipe?.cooking_time}</span>
                                             </td>
                                             <td>
-                                                <span className='cell'>{recipe?.servingSize}</span>
+                                                <span className='cell'>{recipe?.serving_size}</span>
                                             </td>
                                             <td>
                                                 <div>
                                                     <Rating
                                                         readOnly
                                                         name="simple-controlled"
-                                                        value={Number(recipe?.rating)}
+                                                        value={Number(recipe?.avg_rating)}
                                                     />
                                                 </div>
                                             </td>

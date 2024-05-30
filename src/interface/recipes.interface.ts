@@ -3,11 +3,11 @@ export type TRecipe = {
       title: string,
       description: string,
       ingredients: string,
-      cookingTime: string,
+      cooking_time: string,
       preparationSteps: string,
-      servingSize: number,
-      category?: string
-      rating?:string
+      serving_size: number,
+      category_id?: string
+      avg_rating?:string
 }
 
 export type IRecipe = {
@@ -16,9 +16,9 @@ export type IRecipe = {
       description: string
       ingredients: string
       title: string
-      cookingTime: string
+      cooking_time: string
       updatedAt: string
-      servingSize: number
+      serving_size: number
       __v: number
       _id: string
 }

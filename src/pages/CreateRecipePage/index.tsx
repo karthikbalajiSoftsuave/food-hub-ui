@@ -60,9 +60,9 @@ const CreateRecipe: React.FC<Tprops> = () => {
             title: recipeInfo?.title ?? "",
             description: recipeInfo?.description ?? "",
             ingredients: recipeInfo?.ingredients ?? "",
-            cookingTime: recipeInfo?.cookingTime ?? "",
+            cooking_time: recipeInfo?.cooking_time ?? "",
             preparationSteps: recipeInfo?.preparationSteps ?? "",
-            servingSize: recipeInfo?.servingSize ?? 1,
+            serving_size: recipeInfo?.serving_size ?? 1,
         },
         validationSchema: validationSchema,
         onSubmit: handleOnCreateEditRecipe
@@ -108,15 +108,15 @@ const CreateRecipe: React.FC<Tprops> = () => {
                     <Input
                         className="form-field"
                         type="text"
-                        name="cookingTime"
+                        name="cooking_time"
                         placeholder="1hr"
                         label={<>Cooking Time <ClockIcon /> </>}
-                        value={formik.values.cookingTime}
+                        value={formik.values.cooking_time}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         error={
-                            formik.touched.cookingTime && formik.errors.cookingTime
-                                ? formik.errors.cookingTime
+                            formik.touched.cooking_time && formik.errors.cooking_time
+                                ? formik.errors.cooking_time
                                 : undefined
                         }
                     />
@@ -133,14 +133,14 @@ const CreateRecipe: React.FC<Tprops> = () => {
                     <Input
                         className="form-field"
                         type="number"
-                        name="servingSize"
+                        name="serving_size"
                         label="Serving Size"
-                        value={formik.values.servingSize}
+                        value={formik.values.serving_size}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         error={
-                            formik.touched.servingSize && formik.errors.servingSize
-                                ? formik.errors.servingSize
+                            formik.touched.serving_size && formik.errors.serving_size
+                                ? formik.errors.serving_size
                                 : undefined
                         }
                     />

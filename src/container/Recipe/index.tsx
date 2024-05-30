@@ -23,11 +23,11 @@ const Recipes: React.FC<TRecipe> = (props) => {
       header: () => <span>Preparation Steps</span>,
       cell: (info) => info.renderValue(),
     }),
-    columnHelper.accessor("cookingTime", {
+    columnHelper.accessor("cooking_time", {
       header: "Cooking Time",
       cell: (info) => info.renderValue(),
     }),
-    columnHelper.accessor("servingSize", {
+    columnHelper.accessor("serving_size", {
       header: "Serving Size",
       cell: (info) => info.renderValue(),
     }),
