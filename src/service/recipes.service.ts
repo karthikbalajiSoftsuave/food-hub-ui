@@ -4,7 +4,7 @@ import { TRecipe } from "../interface/recipes.interface";
 
 export const getRecipes = async (page: number) => {
   try {
-    const { data } = await BaseService.get(APIENDPOINTS.RECIPES.GET(page));
+    const { data } = await BaseService.post(APIENDPOINTS.RECIPES.GET(page));
     return data;
   } catch (err) {
     throw err;

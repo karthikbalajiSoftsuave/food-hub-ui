@@ -6,7 +6,7 @@ export const APIENDPOINTS = {
   RECIPES: {
     CREATE: "recipe",
     GET: (id) => {
-      return `recipe?page=${id}`;
+      return `recipes?page=${id}`;
     },
     EDIT: (id) => {
       return `recipe/${id}`;
@@ -15,10 +15,16 @@ export const APIENDPOINTS = {
       return `recipe?id=${id}`;
     },
     GET_RECIPES_BY_ID: (id) => {
-      return `recipe/${id}`;
+      return `recipes/${id}`;
     },
     SEARCH_RECIPES: (search) => {
       return `search/${search}`;
+    },
+  },
+  REVIEWS: {
+    CREATE: "reviews",
+    GET: (id) => {
+      return `reviews/${id}`;
     },
   },
 };

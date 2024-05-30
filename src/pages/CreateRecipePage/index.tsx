@@ -2,15 +2,12 @@ import Input from "../../components/Input"
 import Button from "../../components/Button"
 import { useFormik } from "formik"
 import { createRecipes, editRecipes, getRecipesById } from "../../service/recipes.service"
-import { useDispatch, useSelector } from "react-redux"
-import { addUser } from "../../redux/slices/userSlice"
-import { IRecipe, TRecipe } from "../../interface/recipes.interface"
+import { useSelector } from "react-redux"
+import { TRecipe } from "../../interface/recipes.interface"
 import "./style.scss";
 import { useNavigate, useParams } from "react-router-dom"
 import TextBox from "../../components/TextBox"
 import { ClockIcon } from "../../icon-components/clock-icon"
-import Ingredients, { IIngredient } from "../../components/Ingredient"
-import PreparationSteps, { IPreparationSteps } from "../../components/Preparation Steps"
 import { UI_ENDPOINTS } from "../../utils/endpoints";
 import { CKEditor } from "ckeditor4-react";
 import { createRecipeValidationSchema } from "../../validators/auth.validator"
@@ -135,7 +132,7 @@ const CreateRecipe: React.FC<Tprops> = () => {
                             type="text"
                             name="cooking_time"
                             placeholder="1hr"
-                            label={<>Cooking Time <ClockIcon /> </>}
+                            label={<>Cooking Time <ClockIcon /> (In mins)</>}
                             value={formik.values.cooking_time}
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
@@ -183,7 +180,7 @@ const CreateRecipe: React.FC<Tprops> = () => {
                     </div>
 
 
-                    <div className="flex flex-col lg:flex-row lg:justify-evenly items-center mt-2.5">
+                    <div className="flex flex-col lg:flex-row lg:justify-evenly items-center pt-2.5">
                         <Button
                             style={{ width: "150px" }}
                             variant="outlined"

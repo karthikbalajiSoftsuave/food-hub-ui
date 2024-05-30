@@ -10,14 +10,17 @@ import { useNavigate } from "react-router-dom";
 import { UI_ENDPOINTS } from "../../utils/endpoints";
 import { deleteRecipes } from "../../service/recipes.service";
 import Toaster from "../../utils/Toaster";
+import RatingIcon from "../../icon-components/rating-icon";
 
 type Tprops = {
     data?: any
     isDeleted: () => void
+    setOpenRating: (openRating: boolean) => void
+    setData: (data: any) => void
 }
 
 
-const ActionsPopOver: React.FC<Tprops> = ({ data, isDeleted }) => {
+const ActionsPopOver: React.FC<Tprops> = ({ data, isDeleted, setOpenRating, setData }) => {
     const navigate = useNavigate();
     const dropdownRef = useRef(null);
     const dispatch = useDispatch();
@@ -41,15 +44,24 @@ const ActionsPopOver: React.FC<Tprops> = ({ data, isDeleted }) => {
         }
     }
 
+    const handleOnRating = () => {
+        setOpenRating(true);
+        setIsActive(!isActive);
+    }
+
 
     return (
         <div className="action-popover">
-            <button onClick={() => setIsActive(!isActive)} className="menuTrigger" name={"my Account"}>
+            <button onClick={() => { setIsActive(!isActive); setData(data) }} className="menuTrigger" name={"my Account"}>
                 <MenuIcon />
             </button>
             {isActive && <div className="overlay" onClick={() => setIsActive(false)}></div>}
             <nav ref={dropdownRef} className={`popupMenu ${isActive ? "active" : ""}`}>
                 <ul>
+                    <li onClick={() => handleOnRating()}>
+                        <RatingIcon />
+                        <h6>Rating</h6>
+                    </li>
                     <li onClick={() => handleOnEditRecipe()}>
                         <EditIcon />
                         <h6>Edit</h6>

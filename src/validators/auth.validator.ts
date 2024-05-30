@@ -35,3 +35,9 @@ export const createRecipeValidationSchema = Yup.object({
     cooking_time: Yup.string().required('Cooking Time is required'),
     category_id: Yup.string().required('Category Id is required'),
 });
+
+export const ratingValidationSchema = Yup.object({
+    recipe: Yup.number().required('Receipe is required'),
+    rating: Yup.number().required('Rating is required'),
+    comment: Yup.string().required('Comment is required')
+});

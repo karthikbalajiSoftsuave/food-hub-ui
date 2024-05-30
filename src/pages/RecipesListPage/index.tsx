@@ -13,6 +13,7 @@ import FilterPopover from '../../components/FilterPopover';
 import { recipeDetails } from '../../redux/slices/recipeSlice';
 import { useDispatch } from 'react-redux';
 import { STATUS } from '../../utils/constants';
+import { ReviewRecipeModal } from '../../container/Modal/ReviewRecipeModal';
 
 const filterProps = [
   {
@@ -57,6 +58,8 @@ const RecipesListPage: React.FC = () => {
   const columns = ["Title", "Category", "Cooking Time", "Serving Size", "Rating", "Action"];
   const [page, setPage] = useState<number>(1);
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
+  const [openReviewDialog, setOpenReviewDialog] = useState<boolean>(false);
+  const [selectedRecipe, setSelectedRecipe] = useState<TRecipe>()
 
   const handleOnGetAllRecipes = async () => {
     setIsLoading(true);
@@ -114,61 +117,59 @@ const RecipesListPage: React.FC = () => {
   return (
     <>
       <div className='recipes-page'>
-        <div className='recipes-list'>
-          <div>
-            <h4 className="title">Recipes</h4>
-            <div className="menu-bar">
-              <div className="search-container">
-                <Input className="search-recipe" placeholder="Search Recipe" onChange={(event: any) => handleOnSearchRecipe(event?.target.value)} />
-                <div className={"filterField"} onClick={handleClick}><FilterIcon /></div>
-              </div>
-              <Button onClick={handleOnCreateRecipe}>
-                Create New Recipe +
-              </Button>
+        <div className='recipes-page-wrapper'>
+          <h4 className="title">Recipes</h4>
+          <div className="menu-bar">
+            <div className="search-container">
+              <Input className="search-recipe" placeholder="Search Recipe" onChange={(event: any) => handleOnSearchRecipe(event?.target.value)} />
+              <div className={"filterField"} onClick={handleClick}><FilterIcon /></div>
             </div>
-            <div className="table-view">
-              <table className="recipe-table">
-                <thead className="recipe-table__header">
-                  <tr>
-                    {columns?.map((column) => <th>{column}</th>)}
-                  </tr>
-                </thead>
-                {recipesList?.length ? <tbody>
-                  {recipesList?.map((recipe, index) => <tr className={index % 2 === 0 ? "" : "alt-row"}>
-                    <td>
-                      <span className='cell'>{recipe?.title}</span>
-                    </td>
-                    <td>
-                      <span className='cell'>{recipe?.category_id}</span>
-                    </td>
-                    <td>
-                      <span className='cell'>{recipe?.cooking_time}</span>
-                    </td>
-                    <td>
-                      <span className='cell'>{recipe?.serving_size}</span>
-                    </td>
-                    <td>
-                      <div>
-                        <Rating
-                          readOnly
-                          name="simple-controlled"
-                          value={Number(recipe?.avg_rating)}
-                        />
-                      </div>
-                    </td>
-                    <td>
-                      <span className='cell'>
-                        <ActionsPopOver data={recipe} isDeleted={handleOnGetAllRecipes} />
-                      </span>
-                    </td>
-                  </tr>)}
-                </tbody > : <></>}
-              </table>
-            </div>
+            <Button onClick={handleOnCreateRecipe}>
+              Create New Recipe +
+            </Button>
           </div>
-          {!isLoading && recipesList?.length === 0 && <div> No recipes found...</div>}
-          {isLoading && <div> Loading...</div>}
+          <div className="table-view">
+            <table className="recipe-table">
+              <thead className="recipe-table__header">
+                <tr>
+                  {columns?.map((column) => <th>{column}</th>)}
+                </tr>
+              </thead>
+              {recipesList?.length ? <tbody>
+                {recipesList?.map((recipe, index) => <tr className={index % 2 === 0 ? "" : "alt-row"}>
+                  <td>
+                    <span className='cell'>{recipe?.title}</span>
+                  </td>
+                  <td>
+                    <span className='cell'>{recipe?.category_id}</span>
+                  </td>
+                  <td>
+                    <span className='cell'>{recipe?.cooking_time}</span>
+                  </td>
+                  <td>
+                    <span className='cell'>{recipe?.serving_size}</span>
+                  </td>
+                  <td>
+                    <div>
+                      <Rating
+                        readOnly
+                        name="simple-controlled"
+                        value={Number(recipe?.avg_rating)}
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <span className='cell'>
+                      <ActionsPopOver data={recipe} isDeleted={handleOnGetAllRecipes} setOpenRating={setOpenReviewDialog} setData={(recipe) => setSelectedRecipe(recipe)} />
+                    </span>
+                  </td>
+                </tr>)}
+              </tbody > : <></>}
+            </table>
+          </div>
         </div>
+        {!isLoading && recipesList?.length === 0 && <div> No recipes found...</div>}
+        {isLoading && <div> Loading...</div>}
       </div>
       <Popover
         id={id}
@@ -182,6 +183,7 @@ const RecipesListPage: React.FC = () => {
       >
         <FilterPopover filterProps={filterProps} fieldTypes={fieldTypes} />
       </Popover>
+      {openReviewDialog && <ReviewRecipeModal open={openReviewDialog} recipeInfo={selectedRecipe} setOpen={setOpenReviewDialog}  />}
     </>
   );
 };
