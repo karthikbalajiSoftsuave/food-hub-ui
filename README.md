@@ -6,9 +6,6 @@
 # Prerequisite
 * [Node JS](https://nodejs.org/en)
 
-<details>
-  <summary><h1>Project Local Setup</h1></summary>
- 
 
 ### Step 1: Clone The Project
 clone the repo using the below command
@@ -28,5 +25,4 @@ run the project using the below command
 npm run start
 ```
 
-</details>
 
