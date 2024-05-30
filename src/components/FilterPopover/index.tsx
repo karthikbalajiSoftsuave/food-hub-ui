@@ -5,31 +5,38 @@ import "./style.scss";
 import Button from "../Button";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 
-const FilterPopover: React.FC<{ filterProps: any; fieldTypes: any }> = ({
+interface IProps {
+  filterProps: any;
+  filterData: any;
+  onSubmit: (data: any) => void;
+}
+
+const FilterPopover: React.FC<IProps> = ({
   filterProps,
-  fieldTypes,
+  filterData,
+  onSubmit,
 }) => {
-  const {
-    register,
-    handleSubmit,
-    watch,
-    control,
-    formState: { errors },
-  } = useForm<any>({
-    defaultValues: {
+  
+  const payload = filterData?.fields?.length
+    ? {
+        fields: filterData.fields.map((each: any) =>
+          Array.isArray(each.value)
+            ? { ...each, value: each.value.join(",") }
+            : each
+        ),
+      }
+    : null;
+  
+  const { handleSubmit, control } = useForm<any>({
+    defaultValues: payload || {
       fields: [{ field: undefined, operator: undefined, value: undefined }],
     },
   });
-  const { fields, append, remove } = useFieldArray(
-    {
-      control, // control props comes from useForm (optional: if you are using FormProvider)
-      name: "fields", // unique name for your Field Array
-    }
-  );
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "fields",
+  });
 
-  const onSubmit = (data: any) => {
-    console.log(data);
-  }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="filterContainer">

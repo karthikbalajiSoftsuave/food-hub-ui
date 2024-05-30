@@ -21,34 +21,29 @@ const filterProps = [
     value: "field",
     type: "select",
     options: [
+      { label: "Title", value: "title" },
       { label: "Cooking Time", value: "cooking_time" },
       { label: "Description", value: "description" },
-      { label: "Ingrediants", value: "ingrediants" },
+      { label: "Average Rating", value: "avg_rating" },
+      { label: "Preparation Steps", value: "preparation_steps" },
+      { label: "Serving Size", value: "serving_size" },
+      { label: "Category Id", value: "category_id" }
     ],
   },
   {
     label: "Operator",
     value: "operator",
-    selectvalue: "in",
     type: "select",
     options: [
       { label: "Equals", value: "=" },
       { label: "Not Equals", value: "!=" },
-    ],
-    selectoptions: [
-      { label: "In", value: "=" },
-      { label: "Not In", value: "!=" },
-    ],
+      { label: "In", value: "in" },
+      { label: "Not in", value: "not in" },
+      { label: "Like", value: "like" },
+    ]
   },
   { label: "Value", value: "value", type: "input" },
 ];
-
-const fieldTypes = {
-  input: ["cooking_time", "description"],
-  select: ["ingrediants"],
-};
-
-
 
 const RecipesListPage: React.FC = () => {
   const navigate = useNavigate();
@@ -60,20 +55,21 @@ const RecipesListPage: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLDivElement | null>(null);
   const [openReviewDialog, setOpenReviewDialog] = useState<boolean>(false);
   const [selectedRecipe, setSelectedRecipe] = useState<TRecipe>()
+  const [filterData, setFilterData] = useState<any>()
+  const selectFieldTypes = ["in", "not in"];
 
-  const handleOnGetAllRecipes = async () => {
+  const handleOnGetAllRecipes = async (data?:any) => {
     setIsLoading(true);
     try {
-      const getAllRecipes = await getRecipes(page);
-      setRecipesList(getAllRecipes?.data?.results)
+      const getAllRecipes = await getRecipes(page, data || filterData);
+      setRecipesList(getAllRecipes?.data?.results);
     } catch (error) {
       setRecipesList([]);
       console.log("error", error);
-    }
-    finally {
+    } finally {
       setIsLoading(() => false);
     }
-  }
+  };
 
   const handleOnSearchRecipe = async (searchKey: string) => {
     try {
@@ -104,6 +100,21 @@ const RecipesListPage: React.FC = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const filterSubmit = (data: any) => {
+    const payload = {
+      fields: data.fields
+        .filter((field: any) => Object.values(field).every((value) => !!value))
+        .map((each: any) =>
+          selectFieldTypes.includes(each.operator)
+            ? { ...each, value: each.value.split(",") }
+            : each
+        ),
+    };
+    setFilterData(payload)
+    handleClose()
+    handleOnGetAllRecipes(payload);
   };
 
   const open = Boolean(anchorEl);
@@ -181,12 +192,11 @@ const RecipesListPage: React.FC = () => {
           horizontal: "center",
         }}
       >
-        <FilterPopover filterProps={filterProps} fieldTypes={fieldTypes} />
+        <FilterPopover filterProps={filterProps} filterData={filterData} onSubmit={filterSubmit} />
       </Popover>
       {openReviewDialog && <ReviewRecipeModal open={openReviewDialog} recipeInfo={selectedRecipe} setOpen={setOpenReviewDialog}  />}
     </>
   );
 };
 
-
-export default RecipesListPage
+export default RecipesListPage;
