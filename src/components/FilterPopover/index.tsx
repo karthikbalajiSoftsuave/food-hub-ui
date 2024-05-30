@@ -16,7 +16,6 @@ const FilterPopover: React.FC<IProps> = ({
   filterData,
   onSubmit,
 }) => {
-  
   const payload = filterData?.fields?.length
     ? {
         fields: filterData.fields.map((each: any) =>
@@ -26,13 +25,13 @@ const FilterPopover: React.FC<IProps> = ({
         ),
       }
     : null;
-  
+
   const { handleSubmit, control } = useForm<any>({
     defaultValues: payload || {
       fields: [{ field: undefined, operator: undefined, value: undefined }],
     },
   });
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, update } = useFieldArray({
     control,
     name: "fields",
   });
@@ -81,7 +80,13 @@ const FilterPopover: React.FC<IProps> = ({
             })}
             <span
               onClick={() => {
-                fields.length > 1 && remove(index);
+                fields.length > 1
+                  ? remove(index)
+                  : update(index, {
+                      field: undefined,
+                      operator: undefined,
+                      value: undefined,
+                    });
               }}
             >
               X

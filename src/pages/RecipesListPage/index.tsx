@@ -14,6 +14,7 @@ import { recipeDetails } from '../../redux/slices/recipeSlice';
 import { useDispatch } from 'react-redux';
 import { STATUS } from '../../utils/constants';
 import { ReviewRecipeModal } from '../../container/Modal/ReviewRecipeModal';
+import Pagination from '../../components/pagination';
 
 const filterProps = [
   {
@@ -56,6 +57,7 @@ const RecipesListPage: React.FC = () => {
   const [openReviewDialog, setOpenReviewDialog] = useState<boolean>(false);
   const [selectedRecipe, setSelectedRecipe] = useState<TRecipe>()
   const [filterData, setFilterData] = useState<any>()
+  const [totalCount, setTotalCount] = useState(0)
   const selectFieldTypes = ["in", "not in"];
 
   const handleOnGetAllRecipes = async (data?:any) => {
@@ -63,8 +65,10 @@ const RecipesListPage: React.FC = () => {
     try {
       const getAllRecipes = await getRecipes(page, data || filterData);
       setRecipesList(getAllRecipes?.data?.results);
+      setTotalCount(getAllRecipes?.data?.count || 0)
     } catch (error) {
       setRecipesList([]);
+      setTotalCount(0)
       console.log("error", error);
     } finally {
       setIsLoading(() => false);
@@ -75,9 +79,9 @@ const RecipesListPage: React.FC = () => {
     try {
       if (searchKey) {
         const searchRecipe = await searchRecipes(searchKey);
-        console.log("searchRecipe", searchRecipe?.data)
         if (searchRecipe?.data?.status === STATUS.SUCCESS) {
           setRecipesList(searchRecipe?.data?.data?.search_results);
+          setTotalCount(searchRecipe?.data?.data?.count || 0)
           return;
         }
       }
@@ -86,6 +90,7 @@ const RecipesListPage: React.FC = () => {
       }
     } catch (error) {
       setRecipesList([]);
+      setTotalCount(0)
     }
   }
   const handleOnCreateRecipe = () => {
@@ -140,47 +145,53 @@ const RecipesListPage: React.FC = () => {
             </Button>
           </div>
           <div className="table-view">
-            <table className="recipe-table">
-              <thead className="recipe-table__header">
-                <tr>
-                  {columns?.map((column) => <th>{column}</th>)}
-                </tr>
-              </thead>
-              {recipesList?.length ? <tbody>
-                {recipesList?.map((recipe, index) => <tr className={index % 2 === 0 ? "" : "alt-row"}>
-                  <td>
-                    <span className='cell'>{recipe?.title}</span>
-                  </td>
-                  <td>
-                    <span className='cell'>{recipe?.category_id}</span>
-                  </td>
-                  <td>
-                    <span className='cell'>{recipe?.cooking_time}</span>
-                  </td>
-                  <td>
-                    <span className='cell'>{recipe?.serving_size}</span>
-                  </td>
-                  <td>
-                    <div>
-                      <Rating
-                        readOnly
-                        name="simple-controlled"
-                        value={Number(recipe?.avg_rating)}
-                      />
-                    </div>
-                  </td>
-                  <td>
-                    <span className='cell'>
-                      <ActionsPopOver data={recipe} isDeleted={handleOnGetAllRecipes} setOpenRating={setOpenReviewDialog} setData={(recipe) => setSelectedRecipe(recipe)} />
-                    </span>
-                  </td>
-                </tr>)}
-              </tbody > : <></>}
-            </table>
+            <div className="table-container">
+              <table className="recipe-table">
+                <thead className="recipe-table__header">
+                  <tr>
+                    {columns?.map((column) => <th>{column}</th>)}
+                  </tr>
+                </thead>
+                {(recipesList?.length && !isLoading)? <tbody>
+                  {recipesList?.map((recipe, index) => <tr className={index % 2 === 0 ? "" : "alt-row"}>
+                    <td>
+                      <span className='cell'>{recipe?.title}</span>
+                    </td>
+                    <td>
+                      <span className='cell'>{recipe?.category_id}</span>
+                    </td>
+                    <td>
+                      <span className='cell'>{recipe?.cooking_time}</span>
+                    </td>
+                    <td>
+                      <span className='cell'>{recipe?.serving_size}</span>
+                    </td>
+                    <td>
+                      <div>
+                        <Rating
+                          readOnly
+                          name="simple-controlled"
+                          value={Number(recipe?.avg_rating)}
+                        />
+                      </div>
+                    </td>
+                    <td>
+                      <span className='cell'>
+                        <ActionsPopOver data={recipe} isDeleted={handleOnGetAllRecipes} setOpenRating={setOpenReviewDialog} setData={(recipe) => setSelectedRecipe(recipe)} />
+                      </span>
+                    </td>
+                  </tr>)}
+                </tbody > : <tbody><tr><td colSpan={6}>{isLoading ? 'Loading...' : 'No recipes found...'} </td></tr></tbody>}
+              </table>
+            </div>
+            <Pagination
+              onHandleChange ={setPage}
+              totalCount ={totalCount}
+              currentPage ={page}
+            />
           </div>
         </div>
-        {!isLoading && recipesList?.length === 0 && <div> No recipes found...</div>}
-        {isLoading && <div> Loading...</div>}
+        
       </div>
       <Popover
         id={id}

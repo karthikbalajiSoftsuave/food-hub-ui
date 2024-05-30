@@ -119,7 +119,12 @@
         border-radius: 4px;
         height: 100%;
         overflow: auto;
-
+        display: grid;
+        grid-template-rows: 1fr min-content;
+        .table-container{
+            height: 100%;
+            overflow: auto;
+        }
     }
 
     .recipe-table {
