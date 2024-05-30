@@ -16,12 +16,14 @@ clone the repo using the below command
 git clone https://github.com/Antony-M1/recipehub.git
 ```
 
-### Step 2: Install the Requirements
+### Step 2: Install the Dependencies
+install the dependencies using the below command
 ```
 npm install
 ```
 
 ### Step 3: Start The Project in Local
+run the project using the below command
 ```
 npm run start
 ```
