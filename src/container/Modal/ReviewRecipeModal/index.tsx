@@ -50,7 +50,7 @@ export const ReviewRecipeModal: React.FC<Tprops> = ({ open, setOpen, recipeInfo,
             }
         }
         catch (err) {
-            console.log(err)
+            console.error(err)
         }
     }
 

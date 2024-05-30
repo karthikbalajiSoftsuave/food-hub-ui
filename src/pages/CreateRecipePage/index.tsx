@@ -51,7 +51,7 @@ const CreateRecipe: React.FC<Tprops> = ({ isView }) => {
 
         }
         catch (err) {
-            console.log(err)
+            console.error(err)
         }
     }
     const getrecipeDetails = async (id: string) => {

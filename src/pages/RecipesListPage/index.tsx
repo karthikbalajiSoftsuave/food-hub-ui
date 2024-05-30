@@ -70,7 +70,7 @@ const RecipesListPage: React.FC = () => {
     } catch (error) {
       setRecipesList([]);
       setTotalCount(0)
-      console.log("error", error);
+      console.error("error", error);
     } finally {
       setIsLoading(() => false);
     }
@@ -95,7 +95,6 @@ const RecipesListPage: React.FC = () => {
     }
   }
   const handleOnCreateRecipe = () => {
-    console.log('handleOnCreateRecipe')
     dispatch(recipeDetails(null));
     navigate(UI_ENDPOINTS.CREATE_RECIPE);
   }

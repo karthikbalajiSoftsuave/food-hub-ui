@@ -34,7 +34,7 @@ const CreateRecipeModal: React.FC<Tprops> = (props) => {
 
     }
     catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
   const formik = useFormik({

@@ -40,7 +40,7 @@ const Recipe: React.FC = () => {
       const { data } = await getRecipes(1);
       setrecipes(data);
     } catch (err) {
-      console.log("error");
+      console.error("error");
     }
   };
   useEffect(() => {

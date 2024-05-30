@@ -12,14 +12,10 @@ type Tprops = {
 
 const ReviewList: React.FC<Tprops> = ({ recipe }) => {
     const [reviews, setReviews] = useState([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-
 
     const fetchReviews = async () => {
         try {
-            setIsLoading(true);
             const getReviews = await getRecipesById(String(recipe));
-            console.log("getReviews", getReviews)
             if (getReviews?.status === STATUS.SUCCESS) {
                 setReviews(getReviews?.data?.reviews);
             }
@@ -27,21 +23,15 @@ const ReviewList: React.FC<Tprops> = ({ recipe }) => {
 
         }
         finally {
-            setIsLoading(false);
+            
         }
     }
 
     useEffect(() => {
         fetchReviews();
-        console.log("recipe", recipe)
-    }, [recipe])
+    }, [recipe, fetchReviews])
 
-    const handleOnEdit = () => {
-
-    }
-    const handleOnDelete = () => {
-
-    }
+ 
 
     return (
         <div className='review-list'>

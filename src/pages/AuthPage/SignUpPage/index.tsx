@@ -22,10 +22,8 @@ const SignUpForm: React.FC<TProps> = ({ setType }) => {
                 setType("signIn");
                 Toaster({ toast: res?.data?.message, toastType: "success" })
             }
-            console.log(res);
         }
         catch (err: any) {
-            console.log(err);
             Toaster({ toast: err.message, toastType: "error" })
         }
     }
