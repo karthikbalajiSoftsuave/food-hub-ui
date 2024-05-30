@@ -11,6 +11,7 @@ import { EditIcon } from '../../icon-components/edit-icon'
 import { DeleteIcon } from '../../icon-components/delete-icon'
 import Button from '../Button'
 import moment from "moment";
+import { Rating } from '@mui/material'
 
 type Tprops = {
     recipe: string
@@ -55,7 +56,12 @@ const ReviewList: React.FC<Tprops> = ({ recipe }) => {
             {reviews?.map((review: any, index) => <div key={index}>
                 <div className='review-title'>
                     <div>
-                        <p className='user'>{review?.first_name} {review?.last_name}</p>
+                        <div className='rating-container'> <p className='user'>{review?.first_name} {review?.last_name}</p>
+                            <Rating
+                                readOnly
+                                name="simple-controlled"
+                                value={Number(review?.rating)}
+                            /></div>
                         <p className='timestamp'>{moment(review?.created_at).format('MMMM Do, YYYY, h:mm A')}</p>
                     </div>
                     <span className='actions'>

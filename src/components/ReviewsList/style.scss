@@ -15,6 +15,7 @@
     .timestamp {
         font-size: 12px;
         color: gray;
+        text-align: left;
     }
 
     .form-field {
@@ -35,5 +36,10 @@
             display: flex;
             gap: 5px;
         }
+    }
+    .rating-container{
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
 }
