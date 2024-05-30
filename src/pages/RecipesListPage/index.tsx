@@ -128,6 +128,7 @@ const RecipesListPage: React.FC = () => {
   useEffect(() => {
     dispatch(recipeDetails(null));
     handleOnGetAllRecipes();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page])
 
   return (

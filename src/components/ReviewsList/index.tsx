@@ -29,7 +29,8 @@ const ReviewList: React.FC<Tprops> = ({ recipe }) => {
 
     useEffect(() => {
         fetchReviews();
-    }, [recipe, fetchReviews])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [recipe])
 
  
 

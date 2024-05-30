@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import Input from "../../../components/Input";
 import { registerValidationSchema } from "../../../validators/auth.validator";

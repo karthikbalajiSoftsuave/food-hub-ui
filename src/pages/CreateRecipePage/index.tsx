@@ -70,6 +70,7 @@ const CreateRecipe: React.FC<Tprops> = ({ isView }) => {
         if (id) {
             getrecipeDetails(id)
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id])
 
     const formik = useFormik({
