@@ -15,7 +15,7 @@ export const APIENDPOINTS = {
       return `recipe?id=${id}`;
     },
     GET_RECIPES_BY_ID: (id) => {
-      return `recipes/${id}`;
+      return `recipe/${id}`;
     },
     SEARCH_RECIPES: (search) => {
       return `search/${search}`;
@@ -35,7 +35,11 @@ export const UI_ENDPOINTS = {
   RECIPES_LIST: "/app/recipes",
   CREATE_RECIPE: "/app/create-recipe",
   EDIT_RECIPE: "/app/edit-recipe/:id",
+  VIEW_RECIPE: "/app/view-recipe/:id",
   NAVIGATE_EDIT_RECIPE: (id) => {
     return `/app/edit-recipe/${id}`;
+  },
+  NAVIGATE_VIEW_RECIPE: (id) => {
+    return `/app/view-recipe/${id}`;
   },
 };

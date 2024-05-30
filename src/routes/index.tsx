@@ -50,6 +50,14 @@ const AppRouter = () => {
               </Suspense>
             }
           />
+          <Route
+            path={UI_ENDPOINTS.VIEW_RECIPE}
+            element={
+              <Suspense>
+                <CreateRecipe isView={true}/>
+              </Suspense>
+            }
+          />
         </Route>
       </Route>
       <Route

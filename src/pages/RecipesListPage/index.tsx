@@ -205,7 +205,7 @@ const RecipesListPage: React.FC = () => {
       >
         <FilterPopover filterProps={filterProps} filterData={filterData} onSubmit={filterSubmit} />
       </Popover>
-      {openReviewDialog && <ReviewRecipeModal open={openReviewDialog} recipeInfo={selectedRecipe} setOpen={setOpenReviewDialog}  />}
+      {openReviewDialog && <ReviewRecipeModal open={openReviewDialog} recipeInfo={selectedRecipe} setOpen={setOpenReviewDialog}  onClose={handleOnGetAllRecipes}/>}
     </>
   );
 };

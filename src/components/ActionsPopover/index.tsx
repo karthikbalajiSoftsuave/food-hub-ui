@@ -11,6 +11,7 @@ import { UI_ENDPOINTS } from "../../utils/endpoints";
 import { deleteRecipes } from "../../service/recipes.service";
 import Toaster from "../../utils/Toaster";
 import RatingIcon from "../../icon-components/rating-icon";
+import ViewIcon from "../../icon-components/view-icon";
 
 type Tprops = {
     data?: any
@@ -30,6 +31,12 @@ const ActionsPopOver: React.FC<Tprops> = ({ data, isDeleted, setOpenRating, setD
         setIsActive(!isActive);
         dispatch(recipeDetails(data));
         navigate(UI_ENDPOINTS.NAVIGATE_EDIT_RECIPE(data?.id));
+    }
+
+    const handleOnViewRecipe = () => {
+        setIsActive(!isActive);
+        dispatch(recipeDetails(data));
+        navigate(UI_ENDPOINTS.NAVIGATE_VIEW_RECIPE(data?.id));
     }
 
     const handleOnDeleteRecipe = async () => {
@@ -61,6 +68,10 @@ const ActionsPopOver: React.FC<Tprops> = ({ data, isDeleted, setOpenRating, setD
                     <li onClick={() => handleOnRating()}>
                         <RatingIcon />
                         <h6>Rating</h6>
+                    </li>
+                    <li onClick={() => handleOnViewRecipe()}>
+                        <ViewIcon />
+                        <h6>View</h6>
                     </li>
                     <li onClick={() => handleOnEditRecipe()}>
                         <EditIcon />

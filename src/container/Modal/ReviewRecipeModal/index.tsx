@@ -31,22 +31,24 @@ type Tprops = {
     open: boolean;
     setOpen: (open: boolean) => void;
     recipeInfo?: TRecipe
+    onClose: (close: boolean) => void;
 }
 
-export const ReviewRecipeModal: React.FC<Tprops> = ({ open, setOpen, recipeInfo }) => {
+export const ReviewRecipeModal: React.FC<Tprops> = ({ open, setOpen, recipeInfo, onClose }) => {
 
     const handleClose = () => {
         setOpen(false);
+        onClose(false);
     };
 
     const handleOnRating = async (payload: IReviews) => {
         try {
             const createReview = await addReview(payload);
-            if (createReview?.data.status === STATUS.SUCCESS) {
-                Toaster({ toast: createReview?.data?.message, toastType: "success" });
+            if (createReview?.status === STATUS.SUCCESS) {
+                Toaster({ toast: createReview?.message, toastType: "success" });
                 setOpen(false);
+                onClose(true);
             }
-
         }
         catch (err) {
             console.log(err)
@@ -70,54 +72,57 @@ export const ReviewRecipeModal: React.FC<Tprops> = ({ open, setOpen, recipeInfo 
                 onClose={handleClose}
                 aria-labelledby="customized-dialog-title"
                 open={open}
+                fullWidth
+                maxWidth="sm"
             >
-                <form></form>
-                <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-                    Modal title
-                </DialogTitle>
-                <IconButton
-                    aria-label="close"
-                    onClick={handleClose}
-                    sx={{
-                        position: 'absolute',
-                        right: 8,
-                        top: 8,
-                        color: (theme) => theme.palette.grey[500],
-                    }}
-                >
-                    <CloseIcon />
-                </IconButton>
-                <DialogContent dividers>
-                    <div>
-                        <label className='block text-sm text-left font-medium mb-1'>Rating</label>
-                        <Rating
-                            name="simple-controlled"
-                            value={formik.values.rating}
-                            onChange={(event, newValue) => {
-                                formik.setFieldValue("rating", newValue)
-                            }}
-                        />
-                    </div>
+                <form onSubmit={formik.handleSubmit}>
+                    <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+                        Review {recipeInfo?.title}
+                    </DialogTitle>
+                    <IconButton
+                        aria-label="close"
+                        onClick={handleClose}
+                        sx={{
+                            position: 'absolute',
+                            right: 8,
+                            top: 8,
+                            color: (theme) => theme.palette.grey[500],
+                        }}
+                    >
+                        <CloseIcon />
+                    </IconButton>
+                    <DialogContent dividers>
+                        <div>
+                            <label className='block text-sm text-left font-medium mb-1'>Rating</label>
+                            <Rating
+                                name="simple-controlled"
+                                value={formik.values.rating}
+                                onChange={(event, newValue) => {
+                                    formik.setFieldValue("rating", newValue)
+                                }}
+                            />
+                        </div>
 
-                    <TextBox className="form-field"
-                        rows={4}
-                        name="comment"
-                        label="Comment"
-                        placeholder="Enter Comment"
-                        value={formik.values.comment}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={
-                            formik.touched.comment && formik.errors.comment
-                                ? formik.errors.comment
-                                : undefined
-                        } />
-                </DialogContent>
-                <DialogActions>
-                    <Button variant="primary">
-                        Review
-                    </Button>
-                </DialogActions>
+                        <TextBox className="form-field"
+                            rows={4}
+                            name="comment"
+                            label="Comment"
+                            placeholder="Enter Comment"
+                            value={formik.values.comment}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            error={
+                                formik.touched.comment && formik.errors.comment
+                                    ? formik.errors.comment
+                                    : undefined
+                            } />
+                    </DialogContent>
+                    <DialogActions>
+                        <Button variant="primary" type='submit'>
+                            Review
+                        </Button>
+                    </DialogActions>
+                </form>
             </BootstrapDialog>
         </React.Fragment>
     );

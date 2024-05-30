@@ -2,7 +2,7 @@ import Input from "../../components/Input"
 import Button from "../../components/Button"
 import { useFormik } from "formik"
 import { createRecipes, editRecipes, getRecipesById } from "../../service/recipes.service"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { TRecipe } from "../../interface/recipes.interface"
 import "./style.scss";
 import { useNavigate, useParams } from "react-router-dom"
@@ -14,20 +14,23 @@ import { createRecipeValidationSchema } from "../../validators/auth.validator"
 import Dropdown from "../../components/Dropdown"
 import { CATEGORIES, STATUS } from "../../utils/constants"
 import Toaster from "../../utils/Toaster"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import ReviewList from "../../components/ReviewsList"
 
 
 type Tprops = {
-
+    isView?: boolean
 };
-const CreateRecipe: React.FC<Tprops> = () => {
-    const navigate = useNavigate()
+
+const CreateRecipe: React.FC<Tprops> = ({ isView }) => {
+    const navigate = useNavigate();
     const recipeInfo = useSelector((state: any) => state.recipe);
     const { id } = useParams();
 
     const handleOnCreateEditRecipe = async (payload: TRecipe) => {
         try {
             payload.serving_size = String(payload.serving_size);
+            payload.cooking_time = String(payload.cooking_time);
             if (id) {
                 payload.id = id;
                 const editRecipe = await editRecipes(id, payload);
@@ -88,9 +91,10 @@ const CreateRecipe: React.FC<Tprops> = () => {
         <>
             <div className="create-recipe-page">
                 <form onSubmit={formik.handleSubmit} className="create-recipe-form">
-                    <h2 className="title">{id ? "Update" : "Create"} Recipe</h2>
+                    {isView ? <h2 className="title">View Recipe</h2> : <h2 className="title">{id ? "Update" : "Create"} Recipe</h2>}
                     <div className="flex gap-10">
                         <Input
+                            disabled={isView}
                             className="form-field"
                             type="text"
                             name="title"
@@ -104,7 +108,7 @@ const CreateRecipe: React.FC<Tprops> = () => {
                                     : undefined
                             }
                         />
-                        <Dropdown label={"Category"} name="category_id" onBlur={formik.handleBlur} options={CATEGORIES} optionLabel={"name"} optionValue={"name"} placeholder="Select Category" className="form-field" value={formik.values.category_id} onChange={formik.handleChange} error={
+                        <Dropdown disabled={isView} label={"Category"} name="category_id" onBlur={formik.handleBlur} options={CATEGORIES} optionLabel={"name"} optionValue={"name"} placeholder="Select Category" className="form-field" value={formik.values.category_id} onChange={formik.handleChange} error={
                             formik.touched.category_id && formik.errors.category_id
                                 ? formik.errors.category_id
                                 : undefined
@@ -114,6 +118,7 @@ const CreateRecipe: React.FC<Tprops> = () => {
                     <TextBox
                         className="form-field"
                         rows={4}
+                        disabled={isView}
                         name="description"
                         label="Description"
                         placeholder="Enter Description"
@@ -128,10 +133,11 @@ const CreateRecipe: React.FC<Tprops> = () => {
                     />
                     <div className="flex gap-10">
                         <Input
+                            disabled={isView}
                             className="form-field"
-                            type="text"
+                            type="number"
                             name="cooking_time"
-                            placeholder="1hr"
+                            placeholder="1"
                             label={<>Cooking Time <ClockIcon /> (In mins)</>}
                             value={formik.values.cooking_time}
                             onChange={formik.handleChange}
@@ -146,6 +152,7 @@ const CreateRecipe: React.FC<Tprops> = () => {
 
                         <Input
                             className="form-field"
+                            disabled={isView}
                             type="number"
                             name="serving_size"
                             label="Serving Size"
@@ -162,6 +169,7 @@ const CreateRecipe: React.FC<Tprops> = () => {
                     <div style={{ marginTop: "25px" }}>
                         <label className="block text-sm font-medium mb-1">Ingredients</label>
                         <CKEditor
+                            readOnly={isView}
                             name="ingredients"
                             data="<p>Hello from the first editor working with the context!</p>"
                             initData={formik?.values?.ingredients}
@@ -172,14 +180,13 @@ const CreateRecipe: React.FC<Tprops> = () => {
                     <div style={{ marginTop: "25px" }}>
                         <label className="block text-sm font-medium mb-1">Preparation Steps</label>
                         <CKEditor
+                            readOnly={isView}
                             name="preparation_steps"
                             data="<p>Hello from the first editor working with the context!</p>"
                             initData={formik?.values?.preparation_steps}
                             onChange={(e: any) => formik.setFieldValue("preparation_steps", String(e?.editor?.getData()))}
                         />
                     </div>
-
-
                     <div className="flex flex-col lg:flex-row lg:justify-evenly items-center pt-2.5">
                         <Button
                             style={{ width: "150px" }}
@@ -192,10 +199,11 @@ const CreateRecipe: React.FC<Tprops> = () => {
                         >
                             Back
                         </Button>
-                        <Button style={{ width: "150px" }} type="submit">{id ? "Update" : "Save"}</Button>
+                        {!isView && <Button style={{ width: "150px" }} type="submit">{id ? "Update" : "Save"}</Button>}
                     </div>
                 </form>
             </div>
+            {isView && id && <ReviewList recipe={id || ""} />}
         </>
     );
 };

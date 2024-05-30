@@ -4,7 +4,7 @@ import { IReviews } from "../interface/review.interface";
 
 export const addReview = async (review: IReviews) => {
   try {
-    const { data } = await BaseService.post(APIENDPOINTS.REVIEWS.CREATE);
+    const { data } = await BaseService.post(APIENDPOINTS.REVIEWS.CREATE, review);
     return data;
   } catch (err) {
     throw err;
@@ -20,9 +20,9 @@ export const getReview = async (id: string) => {
   }
 };
 
-export const updateReview = async (payload: IReviews) => {
+export const updateReview = async (id: string, payload: IReviews) => {
   try {
-    const res = await BaseService.put(APIENDPOINTS.RECIPES.CREATE, payload);
+    const res = await BaseService.put(APIENDPOINTS.REVIEWS.GET(id), payload);
     return res;
   } catch (err) {
     throw err;
