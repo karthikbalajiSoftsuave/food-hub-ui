@@ -12,10 +12,37 @@ import { ReactComponent as FilterIcon } from "../../assets/filter-icon.svg";
 import FilterPopover from '../../components/FilterPopover';
 
 const filterProps = [
-    { label: "Field", value: "field" ,type: "select" , options: [ {label: "Cooking Time", value: "cooking_time"}, {label: "Description", value: "description"}] } ,
-    { label: "Operator", value: "operator" ,type: "select" , options: [ {label: "Equals", value: "="}, {label: "Not Equals", value: "!="}] },
-    { label: "Value", value: "value" ,type: "input"}
-]
+  {
+    label: "Field",
+    value: "field",
+    type: "select",
+    options: [
+      { label: "Cooking Time", value: "cooking_time" },
+      { label: "Description", value: "description" },
+      { label: "Ingrediants", value: "ingrediants" },
+    ],
+  },
+  {
+    label: "Operator",
+    value: "operator",
+    selectvalue: "in",
+    type: "select",
+    options: [
+      { label: "Equals", value: "=" },
+      { label: "Not Equals", value: "!=" },
+    ],
+    selectoptions: [
+      { label: "In", value: "=" },
+      { label: "Not In", value: "!=" },
+    ],
+  },
+  { label: "Value", value: "value", type: "input" },
+];
+
+const fieldTypes = {
+  input: ["cooking_time", "description"],
+  select: ["ingrediants"],
+};
 
 const RecipesListPage: React.FC = () => {
     const navigate = useNavigate()
@@ -159,10 +186,10 @@ const RecipesListPage: React.FC = () => {
           onClose={handleClose}
           anchorOrigin={{
             vertical: "bottom",
-            horizontal: "left",
+            horizontal: "center",
           }}
         >
-          <FilterPopover filterProps={filterProps}/>
+          <FilterPopover filterProps={filterProps} fieldTypes={fieldTypes}/>
         </Popover>
       </div>
     );
