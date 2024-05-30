@@ -6,6 +6,7 @@
 # Prerequisite
 * [Node JS](https://nodejs.org/en)
 
+ # Project Local Setup
 
 ### Step 1: Clone The Project
 clone the repo using the below command
