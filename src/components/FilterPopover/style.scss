@@ -7,10 +7,14 @@
         gap: 10px;
         align-items: center;
 
-        span{
-            font-weight: 700;
+        .closeIcon{
             margin: auto;
             cursor: pointer;
+            height: 0px;
+            svg{
+                height: 20px;
+                color: #e23e3e;
+            }
         }
     }
     .addIcon{
@@ -20,6 +24,7 @@
             font-weight: 700;
             margin: auto;
             cursor: pointer;
+            color: #e23e3e;
             font-size: 25px;
         }
     }

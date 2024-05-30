@@ -28,7 +28,8 @@ const filterProps = [
       { label: "Average Rating", value: "avg_rating" },
       { label: "Preparation Steps", value: "preparation_steps" },
       { label: "Serving Size", value: "serving_size" },
-      { label: "Category Id", value: "category_id" }
+      { label: "Category Id", value: "category_id" },
+      { label: "Ingredients", value: "ingredients" },
     ],
   },
   {

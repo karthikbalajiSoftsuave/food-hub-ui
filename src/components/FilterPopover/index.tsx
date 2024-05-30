@@ -4,6 +4,7 @@ import Input from "../Input";
 import "./style.scss";
 import Button from "../Button";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface IProps {
   filterProps: any;
@@ -18,7 +19,7 @@ const FilterPopover: React.FC<IProps> = ({
 }) => {
   const payload = filterData?.filters?.length
     ? {
-      filters: filterData.filters.map((each: any) =>
+        filters: filterData.filters.map((each: any) =>
           Array.isArray(each.value)
             ? { ...each, value: each.value.join(",") }
             : each
@@ -78,7 +79,8 @@ const FilterPopover: React.FC<IProps> = ({
                 </div>
               );
             })}
-            <span
+            <div
+              className="closeIcon"
               onClick={() => {
                 fields.length > 1
                   ? remove(index)
@@ -89,18 +91,22 @@ const FilterPopover: React.FC<IProps> = ({
                     });
               }}
             >
-              X
-            </span>
+              <CloseIcon />
+            </div>
           </div>
         ))}
-        <div
-          className={"addIcon"}
-          onClick={() =>
-            append({ field: undefined, operator: undefined, value: undefined })
-          }
-        >
-          {" "}
-          <span>+</span>
+        <div className={"addIcon"}>
+          <span
+            onClick={() =>
+              append({
+                field: undefined,
+                operator: undefined,
+                value: undefined,
+              })
+            }
+          >
+            +
+          </span>
         </div>
 
         <Button variant="primary" type="submit">
