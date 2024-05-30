@@ -11,6 +11,11 @@
         "source": "**",
         "destination": "/index.html"
       }
-    ]
+    ],
+    "redirects": [ {
+      "source": "/api",
+      "destination": "http://13.201.247.48/api",
+      "type": 301
+    } ]
   }
 }
