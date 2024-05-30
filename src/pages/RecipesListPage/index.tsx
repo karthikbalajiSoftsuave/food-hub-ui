@@ -109,7 +109,7 @@ const RecipesListPage: React.FC = () => {
 
   const filterSubmit = (data: any) => {
     const payload = {
-      fields: data.fields
+      filters: data.filters
         .filter((field: any) => Object.values(field).every((value) => !!value))
         .map((each: any) =>
           selectFieldTypes.includes(each.operator)

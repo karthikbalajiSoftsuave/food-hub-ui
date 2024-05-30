@@ -16,9 +16,9 @@ const FilterPopover: React.FC<IProps> = ({
   filterData,
   onSubmit,
 }) => {
-  const payload = filterData?.fields?.length
+  const payload = filterData?.filters?.length
     ? {
-        fields: filterData.fields.map((each: any) =>
+      filters: filterData.filters.map((each: any) =>
           Array.isArray(each.value)
             ? { ...each, value: each.value.join(",") }
             : each
@@ -28,12 +28,12 @@ const FilterPopover: React.FC<IProps> = ({
 
   const { handleSubmit, control } = useForm<any>({
     defaultValues: payload || {
-      fields: [{ field: undefined, operator: undefined, value: undefined }],
+      filters: [{ field: undefined, operator: undefined, value: undefined }],
     },
   });
   const { fields, append, remove, update } = useFieldArray({
     control,
-    name: "fields",
+    name: "filters",
   });
 
   return (
@@ -47,7 +47,7 @@ const FilterPopover: React.FC<IProps> = ({
                   <div className="filter-header">{column.label}</div>
                   {column.type === "select" ? (
                     <Controller
-                      name={`fields.${index}.${column.value}`}
+                      name={`filters.${index}.${column.value}`}
                       control={control}
                       render={({ field: { onChange, value } }) => {
                         return (
@@ -63,7 +63,7 @@ const FilterPopover: React.FC<IProps> = ({
                     />
                   ) : (
                     <Controller
-                      name={`fields.${index}.${column.value}`}
+                      name={`filters.${index}.${column.value}`}
                       control={control}
                       render={({ field: { onChange, value } }) => {
                         return (
