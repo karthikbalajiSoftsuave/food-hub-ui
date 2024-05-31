@@ -6,7 +6,7 @@ class BaseAxios {
 
   constructor() {
     this.axiosInstance = axios.create({
-      baseURL: "/api"
+      baseURL: "https://backendpythontest-seq5e4lmgq-bq.a.run.app/api"
     });
 
     // Set up a request interceptor to attach the access token to requests
