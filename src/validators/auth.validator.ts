@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const passwordValidation = Yup.string();
+export const passwordValidation = Yup.string().required("Password is required.");
 
 export const registerValidationSchema = Yup.object().shape({
     first_name: Yup.string().required("First Name is required"),
