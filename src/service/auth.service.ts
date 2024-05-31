@@ -13,7 +13,8 @@ export const login = async (payload: Tlogin) => {
 
 export const register = async (payload: Tregister) => {
   try {
-    const res = await BaseService.post(APIENDPOINTS.AUTH.REGISTER, payload);
+    const {confirmPassword, ...rest} = payload
+    const res = await BaseService.post(APIENDPOINTS.AUTH.REGISTER, rest);
     return res;
   } catch (err) {
     throw err;

@@ -14,7 +14,6 @@ type TProps = {
 const SignUpForm: React.FC<TProps> = ({ setType }) => {
 
     const submitRegister = async (payload: Tregister) => {
-        delete payload.confirmPassword
         payload.email = payload.email.toLowerCase();
         try {
             const res = await register(payload);
