@@ -23,7 +23,7 @@ const SignUpForm: React.FC<TProps> = ({ setType }) => {
             }
         }
         catch (err: any) {
-            Toaster({ toast: err.message, toastType: "error" })
+            Toaster({ toast: err?.response?.data?.message, toastType: "error" })
         }
     }
 

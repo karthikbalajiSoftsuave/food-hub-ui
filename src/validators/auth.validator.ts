@@ -1,12 +1,6 @@
 import * as Yup from 'yup';
 
-export const passwordValidation = Yup.string()
-    .min(8, "Password must be at least 8 characters")
-    .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-        "Password must include at least one uppercase letter, one lowercase letter, one digit, and one special character"
-    )
-    .required("Password is required");
+export const passwordValidation = Yup.string();
 
 export const registerValidationSchema = Yup.object().shape({
     first_name: Yup.string().required("First Name is required"),
