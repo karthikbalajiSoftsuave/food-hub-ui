@@ -35,6 +35,7 @@ type Tprops = {
 
 export const ReviewRecipeModal: React.FC<Tprops> = ({ open, setOpen, recipeInfo, onClose }) => {
 
+    const [isLoading, setIsLoading] = React.useState(false)
     const handleClose = () => {
         setOpen(false);
         onClose(false);
@@ -42,6 +43,7 @@ export const ReviewRecipeModal: React.FC<Tprops> = ({ open, setOpen, recipeInfo,
 
     const handleOnRating = async (payload: IReviews) => {
         try {
+            setIsLoading(true);
             const createReview = await addReview(payload);
             if (createReview?.status === STATUS.SUCCESS) {
                 Toaster({ toast: createReview?.message, toastType: "success" });
@@ -51,6 +53,9 @@ export const ReviewRecipeModal: React.FC<Tprops> = ({ open, setOpen, recipeInfo,
         }
         catch (err) {
             console.error(err)
+        }
+        finally {
+            setIsLoading(false);
         }
     }
 
@@ -117,8 +122,8 @@ export const ReviewRecipeModal: React.FC<Tprops> = ({ open, setOpen, recipeInfo,
                             } />
                     </DialogContent>
                     <DialogActions>
-                        <Button variant="primary" type='submit'>
-                            Review
+                        <Button variant="primary" type='submit' disabled={isLoading}>
+                            {isLoading ? "Loading..." : "Review"}
                         </Button>
                     </DialogActions>
                 </form>

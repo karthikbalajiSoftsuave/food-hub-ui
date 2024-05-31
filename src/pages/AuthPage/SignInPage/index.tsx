@@ -77,7 +77,7 @@ const SignInForm = () => {
                             : undefined
                     }
                 />
-                <button disabled={isLoading}>{isLoading ? "Loading..." : "Sign In"}</button>
+                <button disabled={isLoading} type="submit">{isLoading ? "Loading..." : "Sign In"}</button>
             </form>
         </div>
     );

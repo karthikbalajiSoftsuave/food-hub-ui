@@ -14,7 +14,7 @@ import { createRecipeValidationSchema } from "../../validators/auth.validator"
 import Dropdown from "../../components/Dropdown"
 import { CATEGORIES, STATUS } from "../../utils/constants"
 import Toaster from "../../utils/Toaster"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import ReviewList from "../../components/ReviewsList"
 
 
@@ -23,12 +23,14 @@ type Tprops = {
 };
 
 const CreateRecipe: React.FC<Tprops> = ({ isView }) => {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const navigate = useNavigate();
     const recipeInfo = useSelector((state: any) => state.recipe);
     const { id } = useParams();
 
     const handleOnCreateEditRecipe = async (payload: TRecipe) => {
         try {
+            setIsLoading(true)
             payload.serving_size = String(payload.serving_size);
             payload.cooking_time = String(payload.cooking_time);
             if (id) {
@@ -53,6 +55,9 @@ const CreateRecipe: React.FC<Tprops> = ({ isView }) => {
         catch (err) {
             console.error(err)
         }
+        finally {
+            setIsLoading(false);
+        }
     }
     const getrecipeDetails = async (id: string) => {
         try {
@@ -70,7 +75,7 @@ const CreateRecipe: React.FC<Tprops> = ({ isView }) => {
         if (id) {
             getrecipeDetails(id)
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id])
 
     const formik = useFormik({
@@ -200,7 +205,9 @@ const CreateRecipe: React.FC<Tprops> = ({ isView }) => {
                         >
                             Back
                         </Button>
-                        {!isView && <Button style={{ width: "150px" }} type="submit">{id ? "Update" : "Save"}</Button>}
+                        {!isView && <Button style={{ width: "150px" }} type="submit" disabled={isLoading}>
+                            {isLoading ? "Loading..." : (id ? "Update" : "Save")}
+                        </Button>}
                     </div>
                 </form>
             </div>
