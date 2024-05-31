@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import Input from "../../../components/Input";
 import { registerValidationSchema } from "../../../validators/auth.validator";
@@ -13,9 +13,11 @@ type TProps = {
 
 const SignUpForm: React.FC<TProps> = ({ setType }) => {
 
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const submitRegister = async (payload: Tregister) => {
         payload.email = payload.email.toLowerCase();
         try {
+            setIsLoading(true);
             const res = await register(payload);
             if (res?.data?.status === STATUS.SUCCESS) {
                 setType("signIn");
@@ -24,6 +26,9 @@ const SignUpForm: React.FC<TProps> = ({ setType }) => {
         }
         catch (err: any) {
             Toaster({ toast: err?.response?.data?.message, toastType: "error" })
+        }
+        finally {
+            setIsLoading(false);
         }
     }
 
@@ -109,7 +114,7 @@ const SignUpForm: React.FC<TProps> = ({ setType }) => {
                     onBlur={formik.handleBlur}
                     error={formik.touched.confirmPassword && formik.errors.confirmPassword ? formik.errors.confirmPassword : undefined}
                 />
-                <button type="submit">Sign Up</button>
+                <button type="submit" disabled={isLoading}>{isLoading ? "Loading..." : "Sign Up"}</button>
             </form>
         </div>
     );

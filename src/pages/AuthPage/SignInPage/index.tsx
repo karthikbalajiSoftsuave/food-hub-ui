@@ -9,14 +9,16 @@ import { Tlogin } from "../../../interface/auth.interface";
 import { useDispatch } from "react-redux";
 import { addUser } from "../../../redux/slices/userSlice";
 import { STATUS } from "../../../utils/constants";
+import { useState } from "react";
 
 
 const SignInForm = () => {
-
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const dispatch = useDispatch()
     const navigate = useNavigate();
     const userLogin = async (payload: Tlogin) => {
         try {
+            setIsLoading(true);
             payload.email = payload.email.toLowerCase()
             const res = await login(payload);
             if (res?.status === STATUS.SUCCESS) {
@@ -28,6 +30,9 @@ const SignInForm = () => {
         }
         catch (err: any) {
             Toaster({ toast: err?.response?.data?.message, toastType: "error" })
+        }
+        finally {
+            setIsLoading(false);
         }
 
     };
@@ -72,7 +77,7 @@ const SignInForm = () => {
                             : undefined
                     }
                 />
-                <button>Sign In</button>
+                <button disabled={isLoading}>{isLoading ? "Loading..." : "Sign In"}</button>
             </form>
         </div>
     );
